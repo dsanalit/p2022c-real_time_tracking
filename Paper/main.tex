@@ -1,0 +1,193 @@
+
+\documentclass[journal]{IEEEtran}
+
+\IEEEoverridecommandlockouts                              % This command thanks command
+%\overrideIEEEmargins
+% See the \addtolength command later in the file to balance the column lengths
+% on the last page of the document
+
+%\def\baselinestretch{0.9999}
+
+%\input{boldfacemath}
+
+%\usepackage{exsheets}
+
+
+
+% save and then undefine the offending command
+% we need \makeatletter because \@undefined uses the special @ character.
+\makeatletter
+\let\IEEEproof\proof
+\let\IEEEendproof\endproof
+\let\proof\@undefined
+\let\endproof\@undefined
+\makeatother
+
+% The following packages can be found on http:\\www.ctan.org
+%\usepackage{graphics} % for pdf, bitmapped graphics files
+%\usepackage{epsfig} % for xpostscript graphics files
+%\usepackage{mathptmx} % assumes new font selection scheme installed
+%\usepackage{times} % assumes new font selection scheme installed
+\usepackage{amsmath} % assumes amsmath package installed
+\usepackage{amssymb}  % assumes amsmath package installed
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+
+% Text
+\usepackage{comment}
+\usepackage[normalem]{ulem}
+%\usepackage[inline]{enumitem}
+%let\labelindent\relax % Since the \labelindent command exists for legacy reasons in the IEEE template, you can simply "disable" it by adding the following before importing the enumitem package
+%\usepackage{enumitem}
+\usepackage{bm}
+\providecommand{\bm}{\pmb}
+
+%\usepackage{flushend}
+
+\newtheorem{prop}{Proposition}
+\newtheorem{cor}{Corollary}
+\newtheorem{defin}{Definition}
+\newtheorem{fact}{Fact}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem*{Zorn}{Zorn’s Lemma}
+\theoremstyle{definition}
+\newtheorem{dfn}{Definition}
+\theoremstyle{remark}
+\newtheorem*{rmk}{Remark}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{remark}[theorem]{Remark}
+
+\newtheorem{problem}{Problem}
+
+\usepackage{verbatim}
+
+\usepackage{color}
+%\usepackage{subfig}
+\usepackage{graphicx}
+%\usepackage{caption}
+\usepackage{esvect}
+
+
+
+%\usepackage{mathptmx}
+\usepackage{times}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+%\usepackage[noend]{algorithmic}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\graphicspath{{images/}}
+
+\usepackage[us]{datetime}
+\usepackage{caption}
+\captionsetup{font=small}
+
+
+%\documentclass[a4, 10pt, conference]{ieeeconf}
+
+ \usepackage[usenames,dvipsnames,table]{xcolor}
+
+\usepackage{hyperref} %pdf with links and toc on the left
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black,
+    pdfauthor={},
+    pdfsubject={},
+    pdftitle={}
+}
+
+\usepackage{todonotes}
+%\usepackage{todonotes} lets you insert notes of stuff to do with the syntax \todo{Add details.}
+
+\usepackage{graphicx}
+% \usepackage{graphicx} manage external pictures
+
+\usepackage{latexsym}
+\usepackage{color}
+% \usepackage{color} adds support for colored text
+
+\usepackage{cite}
+
+% \usepackage{cite} assists in citation management
+
+\usepackage{caption}
+%\usepackage{caption} allows customization of appearance and placement of captions for figures, tables, etc.
+%\usepackage{subcaption}
+\usepackage{subfig}
+
+
+\usepackage{tikz}
+\usepackage{adjustbox}
+\usetikzlibrary{shapes,arrows}
+
+% ---------- added packages -----------------------------------
+\usepackage{tabularx, booktabs}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\usepackage{multirow}
+\usepackage{paralist}
+% ---------- New Symbols and Commands -------------------------
+\input{symbol_definition}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert} % norm
+
+\captionsetup[subfigure]{labelformat=simple, labelsep=colon}
+\makeatletter
+\renewcommand*{\thesubfigure}{(\alph{subfigure})} 
+\makeatother
+%\makeatother
+\pagestyle{headings}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{DPIV Analysis and Real Time Implementation}
+
+
+\author{E. Cutuli${^{1}}$, G. Stella${^{1}}$, D. Sanalitro${^{1}}$, M. Bucolo${^{1}}$~\IEEEmembership{Senior Member,~IEEE}
+
+\thanks{$^1$Department of Electrical Electronic and Computer Science Engineering, University of Catania, CT, Italy. {\tt \scriptsize\href{mailto:uni391076@studium.unict.it}{\mbox{uni391076@studium.unict.it}}
+\scriptsize\href{mailto:emaunuela.cutuli@phd.unict.it}{\mbox{emanuela.cutuli@phd.unict.it}}
+\scriptsize\href{mailto:giovanna.stella@phd.unict.it}{\mbox{giovanna.stella@phd.unict.it}}
+\scriptsize\href{mailto:dario.sanalitro@unict.it}{\mbox{dario.sanalitro@unict.it}}}. 
+\scriptsize\href{mailto:maide.bucolo@unict.it}{\mbox{maide.bucolo@unict.it}}}. 
+}
+
+%\thanks{Digital Object Idenitifier (DOI): see top of this page}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
+
+\end{abstract}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{IEEEkeywords}
+	Signal processing, Micro-optofluidic device, Data-driven Modelling
+\end{IEEEkeywords}
+
+
+\bibliographystyle{IEEEtran}
+% DO NOT ERASE THE NEXT LINE,
+% ONLY COMMENT IT AND DECOMMENT THE NEXT-NEXT, IF YOU NEED
+\bibliography{./bibCustom}
+
+
+
+\end{document}
+
