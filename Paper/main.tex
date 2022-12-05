@@ -205,6 +205,40 @@ Then different sources of actuation, mechanical by syringe pumps and optical by 
 %$\flowrate$, $\flowratewatercommand$,$\channelArea$ are all examples of variables defined in "symbol-definition.tex"
 
 \subsection{DPIV Online Platform Implementation}\label{sec:method}
+In this paper, we propose a DPIV online platform implementation for data acquisition and processing. Starting from a pre-existing DPIV platform that works offline, a new version of the same algorithm
+that works online has been implemented. ~\fig\ref{Algorithms} shows a schematic of the two implementations. The feature that most diversifies the two algorithms is based on the fact that the offline algorithm works on a video acquired in a moment before the analysis that is carried out.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\columnwidth]{images/DPIV}
+	\centering{\caption{\label{Algorithms}Offline and Online algorithms }}
+\end{figure}
+
+The first step involves the camera parameters setting, through the following quantities:
+
+\begin{itemize}
+	\item \textbf{Pixelsize}: obtained from the camera datasheet.
+	\item \textbf{Magnification}: based on the optical components used in the experimental setup.
+	\item \textbf{Exposure time}: chosen on the basis of experimental needs.
+	\item \textbf{Image gain}: chosen on the basis of experimental needs.
+\end{itemize}
+
+Some simulations have been carried out to evaluate camera performances varying the parameters and the results found are listed below:
+\begin{itemize}
+	\item Increasing the Gain, the acquired image became clearer (see ~\fig\ref{CamPar}) without affecting the framerate.
+	\item Increasing the Exposure time the acquired image became clearer (see ~\fig\ref{CamPar}) but this reduces a lot the framerate. 
+	\\A compromise between the clarity of the image obtained by increasing the Exposure time and the framerate must be reached.
+	\item If the Exposure Time is too small, even increasing the Gain, the image quality is bad.
+\end{itemize}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\columnwidth]{images/CameraParameters}
+	\centering{\caption{\label{CamPar}Increase in image quality by acting on camera parameters }}
+\end{figure}
+
+The major contribution of this algorithm is represented by the acquisition that takes place in online mode through the communication between the CCD camera and MATLAB downloading the \textbf{Windows SDK and Doc. for Scientific Cameras}. 
+
 
 \section{Experiments}
 
