@@ -205,7 +205,7 @@ Then different sources of actuation, mechanical by syringe pumps and optical by 
 %$\flowrate$, $\flowratewatercommand$,$\channelArea$ are all examples of variables defined in "symbol-definition.tex"
 
 \subsection{DPIV Online Platform Implementation}\label{sec:method}
-In this paper, we propose a DPIV online platform implementation for data acquisition and processing. Starting from a pre-existing DPIV platform that works offline, a new version of the same algorithm
+In this paper, a DPIV online platform implementation for data acquisition and processing is proposed. Starting from a pre-existing DPIV platform that works offline, a new version of the same algorithm
 that works online has been implemented. ~\fig\ref{Algorithms} shows a schematic of the two implementations. The feature that most diversifies the two algorithms is based on the fact that the offline algorithm works on a video acquired in a moment before the analysis that is carried out.
 
 \begin{figure}[h]
@@ -237,7 +237,36 @@ Some simulations have been carried out to evaluate camera performances varying t
 	\centering{\caption{\label{CamPar}Increase in image quality by acting on camera parameters }}
 \end{figure}
 
-The major contribution of this algorithm is represented by the acquisition that takes place in online mode through the communication between the CCD camera and MATLAB downloading the \textbf{Windows SDK and Doc. for Scientific Cameras}. 
+The major contribution of this algorithm is represented by the acquisition that takes place in an online mode through the communication between the CCD camera and MATLAB downloading the \textbf{Windows SDK and Doc. for Scientific Cameras}.
+\\Having the data available, the algorithm proceeds in a similar way to the offline case. The analyzes are carried out cyclically on sub-groups of frames, iteratively updating the results.
+\\An on-screen ROI selection procedure has been introduced. It is determined by setting the left-top
+corner of the image as the starting pixel and the right-down corner of the image as the end pixel, in order to obtain the desired width (W) and height (H). 
+\\A DPIV analysis followed by a micro-particles counting procedure are at this point carried out for the predefined interrogation regions of interest (ROI). The DPIV approach consists of a first collection of the
+time-varying velocity vector maps and a subsequent evaluation of the cross-correlation between ROIs of consecutive pairs of images. The velocity spatial distribution along the horizontal $V_x(i,j,t)$ and vertical $V_y(i,j,t)$ directions is obtained for each frame. Spatial averaging is done so that a single velocity value is obtained for each frame. By repeating this procedure for all the frames, two signals representing the trends of the average speed over time are given, respectively $<V_x(t)>$ and $<V_y(t)>$.
+The preliminary step of DPIV setting concerns the possibility of opting to a multi-pass DFT for the DPIV analysis, through the following parameters: 
+
+\begin{itemize}
+	\item \textbf{Number of passes}: choosing form 1 to 4
+	\item \textbf{Step Size}
+	\item \textbf{Interrogation areas}: varying with to the first parameter
+\end{itemize}
+
+A multi-pass DFT could be used in order to increase the accuracy. A good compromise between the resolution and the computational time is given by the DFT approach with interrogation areas 64-32-16, so number of passes equal to 3, and step size 8. 
+\\There is a further choice of performing the analysis in the whole ROI (single section) or by dividing the ROI into three horizontal sections, parallel to the particles' motion direction (three sections). This choice allows to highlight through the results the different particles average speed in the edges of the channel, which is greater than the one at the center of the channel.
+\\The second type of analysis that this platform provides is the micro-particles counting.This procedure is based on highlighting the particles in the image distinguishing them from the background.
+ \\The steps for the counting operation are:
+ 
+ \begin{enumerate}
+ 	\item ROI selection;
+ 	\item Conversion to greyscale;
+ 	\item Duplication of the image;
+ 	\item Application of a gaussian filter (radius equal to 5);
+ 	\item Difference between the original image and the duplicated one;
+ 	\item Binarization of the image;
+ \end{enumerate}
+At this point a function takes as input the binary image. It traces the exterior boundaries of particles and gives the number of them found.
+Important parameters to be set are the minimum and maximum dimensions of the cells, in order to count among the found objects only those that have an appropriate size, and a threshold value, chosen to define the circularity (a threshold equal to 1 indicates a perfect circle).
+
 
 
 \section{Experiments}
