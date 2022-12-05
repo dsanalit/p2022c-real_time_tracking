@@ -191,22 +191,25 @@ This paper ecc...
 
 \subsection{System Design and Hardware Platform Realization}\label{sec:design}
 
-From a methodological point of view, the experimental characterization of the process takes place through the acquisition of video signals that allow studying different interaction mechanisms between particles/cells subject to external hydrodynamic actuation.
-The captured videos is then analyzed using the Digital Particle Image Velocimetry (DPIV).
+From a methodological point of view, the experimental characterization of the process takes place through the acquisition of video signals \DS{videos or signals} that allow studying different interaction mechanisms between particles/cells subject to external hydrodynamic actuation.
+The captured videos is\DS{are} then analyzed using Digital Particle Image Velocimetry (DPIV).
 \\From a hardware realization point of view, the focus is put on interfacing the microfluidic device with a video signal acquisition system.
 Then different sources of actuation, mechanical by syringe pumps and optical by LED light are considered through which it is possible to study different interaction mechanisms between micro-particles subjected to different external stresses, in particular to sinusoidal flows with frequency and amplitude values to be fixed. 
+\DS{I would try to rewrite the paragraph in a more schematic/detailed way. For example: In order to study the different interaction mechanisms between particles in micro-channels subject to external hydrodynamic actuation, the system is composed of i) the hydrodynamic actuation system, ii) a video-acquisition system, iii)  a PC where the algorithm runs, as shown in \fig\ref{fig:Platform}.}
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1\columnwidth]{images/Platform}
-	\centering{\caption{\label{Platoform}System Design and Hardware Platform Realization block schemes }}
+	\centering{\caption{\label{fig:Platform}System Design and Hardware Platform Realization block schemes }}
 \end{figure}
 
 %$\flowrate$, $\flowratewatercommand$,$\channelArea$ are all examples of variables defined in "symbol-definition.tex"
 
 \subsection{DPIV Online Platform Implementation}\label{sec:method}
+\DS{Provide a little bit of scientific context where DPIV has been used. I would try to make a small search if a part from this work~\cite{2017-CaiSanBucOrtCabInt}, offline/online versions have been presented.  }
 In this paper, a DPIV online platform implementation for data acquisition and processing is proposed. Starting from a pre-existing DPIV platform that works offline, a new version of the same algorithm
 that works online has been implemented. ~\fig\ref{Algorithms} shows a schematic of the two implementations. The feature that most diversifies the two algorithms is based on the fact that the offline algorithm works on a video acquired in a moment before the analysis that is carried out.
+\DS{Try to make this differentiation more textual, without using bullet lists. We will rarely use them in the text, a part from defining experimental sets or when it will be extremely necessary.}
 
 \begin{figure}[h]
 	\centering
@@ -240,8 +243,8 @@ Some simulations have been carried out to evaluate camera performances varying t
 The major contribution of this algorithm is represented by the acquisition that takes place in an online mode through the communication between the CCD camera and MATLAB downloading the \textbf{Windows SDK and Doc. for Scientific Cameras}.
 \\Having the data available, the algorithm proceeds in a similar way to the offline case. The analyzes are carried out cyclically on sub-groups of frames, iteratively updating the results.
 \\An on-screen ROI selection procedure has been introduced. It is determined by setting the left-top
-corner of the image as the starting pixel and the right-down corner of the image as the end pixel, in order to obtain the desired width (W) and height (H). 
-\\A DPIV analysis followed by a micro-particles counting procedure are at this point carried out for the predefined interrogation regions of interest (ROI). The DPIV approach consists of a first collection of the
+corner of the image as the starting pixel and the right-down corner of the image as the end pixel, in order to obtain the desired width (W) and height (H). \DS{This is a minor detail, and can be summed up in a single statement. } 
+\\A DPIV analysis followed by a micro-particles counting procedure are at this point carried out for the predefined interrogation regions of interest (ROI). The DPIV approach \DS{When something is not a contribution of the paper, we will add a reference} consists of a first collection of the
 time-varying velocity vector maps and a subsequent evaluation of the cross-correlation between ROIs of consecutive pairs of images. The velocity spatial distribution along the horizontal $V_x(i,j,t)$ and vertical $V_y(i,j,t)$ directions is obtained for each frame. Spatial averaging is done so that a single velocity value is obtained for each frame. By repeating this procedure for all the frames, two signals representing the trends of the average speed over time are given, respectively $<V_x(t)>$ and $<V_y(t)>$.
 The preliminary step of DPIV setting concerns the possibility of opting to a multi-pass DFT for the DPIV analysis, through the following parameters: 
 
@@ -286,10 +289,10 @@ Important parameters to be set are the minimum and maximum dimensions of the cel
 \section{Conclusions}
 
 
-%\bibliographystyle{IEEEtran}
+\bibliographystyle{IEEEtran}
 % DO NOT ERASE THE NEXT LINE,
 % ONLY COMMENT IT AND DECOMMENT THE NEXT-NEXT, IF YOU NEED
-%\bibliography{./bibCustom}
+\bibliography{./bibCustom}
 
 
 
