@@ -191,8 +191,8 @@ This paper ecc...
 
 \subsection{System Design and Hardware Platform Realization}\label{sec:design}
 
-From a methodological point of view, the experimental characterization of the process takes place through the acquisition of video signals \DS{videos or signals} that allow studying different interaction mechanisms between particles/cells subject to external hydrodynamic actuation.
-The captured videos is\DS{are} then analyzed using Digital Particle Image Velocimetry (DPIV).
+From a methodological point of view, the experimental characterization of the process takes place through the acquisition of videos that allow studying different interaction mechanisms between particles/cells subject to external hydrodynamic actuation.
+The captured videos are then analyzed using Digital Particle Image Velocimetry (DPIV).
 \\From a hardware realization point of view, the focus is put on interfacing the microfluidic device with a video signal acquisition system.
 Then different sources of actuation, mechanical by syringe pumps and optical by LED light are considered through which it is possible to study different interaction mechanisms between micro-particles subjected to different external stresses, in particular to sinusoidal flows with frequency and amplitude values to be fixed. 
 \DS{I would try to rewrite the paragraph in a more schematic/detailed way. For example: In order to study the different interaction mechanisms between particles in micro-channels subject to external hydrodynamic actuation, the system is composed of i) the hydrodynamic actuation system, ii) a video-acquisition system, iii)  a PC where the algorithm runs, as shown in \fig\ref{fig:Platform}.}
@@ -271,10 +271,32 @@ At this point a function takes as input the binary image. It traces the exterior
 Important parameters to be set are the minimum and maximum dimensions of the cells, in order to count among the found objects only those that have an appropriate size, and a threshold value, chosen to define the circularity (a threshold equal to 1 indicates a perfect circle).
 
 
-
 \section{Experiments}
 
 \subsection{Experimental Setup}
+
+The experimental set-up is composed of a syringe pump, a microfluidic chip, an opto-mechanical system and a personal computer. Syringe pump (neMESYS low-pressure module, Cetoni GmbH,
+Korbussen, Germany) were used to inject the sample of particles or cells suspended in a fluid in the Y-junction squared rectilinear micro-channel (SMS0104, Thinxxs, Zweibrucken, Germany), 16~$[\rm mm]$ long and with a diameter of 320~$[\rm~\mu m]$ (see ~\fig\ref{chip}).
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\columnwidth]{images/chip}
+	\centering{\caption{\label{chip}A microfluidic rectilinear channel with diameter = 320~$[\rm~\mu m]$ and length = 16~$[\rm mm]$.}}
+\end{figure}
+
+A CCD camera (340M Fast Frame, Thorlabs) was included in the optomechanical system (OTKB(/M) Modular Optical Tweezers, Thorlabs). It process the input LED light after crossing the chip and being reflected by a first mirror, placed for structural reasons, and a second one which has the splitting light task. The CCD camera was connected through a USB connection with a PC for the data acquisition phase and then the analysis one in the dedicated software platforms. A picture representing the experimental set-up is reported in ~\fig\ref{setup}. 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\columnwidth]{images/setup}
+	\centering{\caption{\label{setup}A picture showing the experimental set-up.}}
+\end{figure}
+A magnification of 10X (PLN, Olympus) has been considered.
+The data were recorded for about 60 seconds for experiments performed with the offline implementation and 15 seconds in the online one, with a video frame rate of 57 frames per second in both cases.
+The fluids employed for the experiments were obtained by diluting micro-particles in different solutions. The micro-particles were of two types: live cells of eukaryotic origins with a diameter of 5~$[\rm~\mu m]$ and artificial silica beads with a diameter of 6~$[\rm~\mu m]$. The first were the yeast cells that were investigated in four different living conditions, in particular viable, 2 days overgrowth, 5 days overgrowth and exposed to cell death stimuli with $H_2O_2$. 
+Yeast cells were diluted in a saline solution, the phospate buffered saline (PBS). In the case of Silica beads micro-particles, two different solutions were considered: a first one obtained by mixing 20\% of water with 80\% of glycerol in which the increase in the fluid density avoids the deposition of the particles at the bottom of the channel, and a second solution that is the PBS one.
+\\The microfluidic chip was fed with fluid on which an oscillating flow was imposed.
+
 
 \subsection{Experimental Results}
 
@@ -292,7 +314,7 @@ Important parameters to be set are the minimum and maximum dimensions of the cel
 \bibliographystyle{IEEEtran}
 % DO NOT ERASE THE NEXT LINE,
 % ONLY COMMENT IT AND DECOMMENT THE NEXT-NEXT, IF YOU NEED
-\bibliography{./bibCustom}
+%\bibliography{./bibCustom}
 
 
 
