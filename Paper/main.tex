@@ -275,7 +275,7 @@ Important parameters to be set are the minimum and maximum dimensions of the cel
 
 \subsection{Experimental Setup}
 
-The experimental set-up is composed of a syringe pump, a microfluidic chip, an opto-mechanical system and a personal computer. Syringe pump (neMESYS low-pressure module, Cetoni GmbH,
+The experimental set-up is composed of a syringe pump, a microfluidic chip, an opto-mechanical system and a personal computer. A representation of it is reported in ~\fig\ref{setup}. Syringe pumps (neMESYS low-pressure module, Cetoni GmbH,
 Korbussen, Germany) were used to inject the sample of particles or cells suspended in a fluid in the Y-junction squared rectilinear micro-channel (SMS0104, Thinxxs, Zweibrucken, Germany), 16~$[\rm mm]$ long and with a diameter of 320~$[\rm~\mu m]$ (see ~\fig\ref{chip}).
 
 \begin{figure}[h]
@@ -284,18 +284,19 @@ Korbussen, Germany) were used to inject the sample of particles or cells suspend
 	\centering{\caption{\label{chip}A microfluidic rectilinear channel with diameter = 320~$[\rm~\mu m]$ and length = 16~$[\rm mm]$.}}
 \end{figure}
 
-A CCD camera (340M Fast Frame, Thorlabs) was included in the optomechanical system (OTKB(/M) Modular Optical Tweezers, Thorlabs). It process the input LED light after crossing the chip and being reflected by a first mirror, placed for structural reasons, and a second one which has the splitting light task. The CCD camera was connected through a USB connection with a PC for the data acquisition phase and then the analysis one in the dedicated software platforms. A picture representing the experimental set-up is reported in ~\fig\ref{setup}. 
+A CCD camera (340M Fast Frame, Thorlabs) was included in the optomechanical system (OTKB(/M)\DS{is there an additional parenthesis? } Modular Optical Tweezers, Thorlabs). It process the input LED light after crossing the chip and being reflected by a first mirror, placed for structural reasons, and a second one which has the splitting light task. \DS{A camera doesn't do light processing. Secondly, I think you can make shorter this sentence to make the concept clearer}. The CCD camera was connected through a USB connection with a PC for the data acquisition phase and then the analysis one in the dedicated software platforms.\DS{The text is a little bit contorted. It seems you've the tendency to use "one" to avoid rewriting the same word, which is good. However, sometimes, this is not always helpful during the reading phase.} 
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1\columnwidth]{images/setup}
 	\centering{\caption{\label{setup}A picture showing the experimental set-up.}}
 \end{figure}
-A magnification of 10X (PLN, Olympus) has been considered.
+A magnification of 10X (PLN, Olympus) has been considered. \DS{"A magnification of 10X has been used to..."} 
 The data were recorded for about 60 seconds for experiments performed with the offline implementation and 15 seconds in the online one, with a video frame rate of 57 frames per second in both cases.
-The fluids employed for the experiments were obtained by diluting micro-particles in different solutions. The micro-particles were of two types: live cells of eukaryotic origins with a diameter of 5~$[\rm~\mu m]$ and artificial silica beads with a diameter of 6~$[\rm~\mu m]$. The first were the yeast cells that were investigated in four different living conditions, in particular viable, 2 days overgrowth, 5 days overgrowth and exposed to cell death stimuli with $H_2O_2$. 
-Yeast cells were diluted in a saline solution, the phospate buffered saline (PBS). In the case of Silica beads micro-particles, two different solutions were considered: a first one obtained by mixing 20\% of water with 80\% of glycerol in which the increase in the fluid density avoids the deposition of the particles at the bottom of the channel, and a second solution that is the PBS one.
-\\The microfluidic chip was fed with fluid on which an oscillating flow was imposed.
+The fluids employed for the experiments were obtained by diluting micro-particles in different solutions. The micro-particles were of two types: live cells of eukaryotic origins with a diameter of 5~$[\rm~\mu m]$ and artificial silica beads with a diameter of 6~$[\rm~\mu m]$ \DS{we can explain why we've used two types of particles.} Four different types of living cell conditions have been examined. In particular viable cells, 2 days overgrowth, 5 days overgrowth and exposed to cell death stimuli with \DS{water ($H_2O_2$)}. \DS{Did we say to mention living and death cells. Didn't we?} 
+Yeast cells were diluted in a saline solution, the phospate buffered saline (PBS). By contrast, Silica beads micro-particles were diluted in two different solutions. A first one obtained by combining 20\% of water with 80\% of glycerol to avoid the deposition of the particles at the bottom of the channel thanks to the increment of the fluid density. The second solution is represented by PBS.
+The microfluidic chip was fed with fluid on which an oscillating flow was imposed.
+\DS{You can avoid using \textbackslash\textbackslash for the line return. Sometimes doesn't create anything, sometimes it creates undesired effects in the text formatting.}
 
 
 \subsection{Experimental Results}
