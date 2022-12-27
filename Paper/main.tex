@@ -187,65 +187,57 @@
 
 This paper ecc...
 
+\subsection{Paper main contributions}
 
 
 \section{Materials and Methods}
 
 \subsection{System Design and Hardware Platform Realization}\label{sec:design}
 
-
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=1\columnwidth]{images/PlatformDesign}
+	\centering{\caption{\label{Platform}System Design and Hardware Platform Realization block schemes }}
+\end{figure}
 
 From a methodological point of view, the experimental characterization of the process takes place through the acquisition of videos that allow studying different interaction mechanisms between particles/cells subjected to different external stresses.
 The captured videos are then analyzed using Digital Particle Image Velocimetry (DPIV).
-In order to study the different interaction mechanisms between particles in micro-channels subject to external hydrodynamic actuation, the system is composed of i) the hydrodynamic actuation system, ii) the optomechanical system, iii) the microfluidic device,, iv) a video-acquisition system, v)  a PC where the algorithm runs, as shown in \fig\ref{fig:Platform}.
+In order to study the different interaction mechanisms between particles in micro-channels subject to external hydrodynamic actuation, the system is composed of i) the hydrodynamic actuation system, ii) the optomechanical system, iii) the microfluidic device,, iv) a video-acquisition system, v)  a PC where the algorithm runs, as shown in \fig\ref{Platform}.
 
 %$\flowrate$, $\flowratewatercommand$,$\channelArea$ are all examples of variables defined in "symbol-definition.tex"
 
 \subsection{DPIV Online Platform Implementation}\label{sec:method}
 
-\begin{figure}[!h]
-	\centering
-	\includegraphics[width=1\columnwidth]{images/Platform}
-	\centering{\caption{\label{fig:Platform}System Design and Hardware Platform Realization block schemes }}
-\end{figure}
-
 \DS{Provide a little bit of scientific context where DPIV has been used. I would try to make a small search if a part from this work~\cite{2017-CaiSanBucOrtCabInt}, offline/online versions have been presented.  }
 In this paper, a DPIV online platform implementation for data acquisition and processing is proposed. Starting from a pre-existing DPIV platform that works offline, a new version of the same algorithm
-that works online has been implemented. ~\fig\ref{Algorithms} shows a schematic of the new implementations. The feature that most diversifies the two algorithms is based on the fact that the offline algorithm works on a video acquired in a moment before the analysis that is carried out.
+that works online has been implemented. ~\fig\ref{Algorithms} shows a schematic of the two implementations. The feature that most diversifies the two algorithms is based on the fact that the offline algorithm works on a video acquired in a moment before the analysis that is carried out and through a different software from the one on which the analysis routine runs.
 
 
-
-\begin{figure}[!h]
-	\centering
-	\includegraphics[width=1\columnwidth]{images/algorithm}
-	\centering{\caption{\label{Algorithms}Online algorithm implementation }}
-\end{figure}
-
-The first step involves the camera parameters setting, through the following quantities: i) pixelsize obtained from the camera datasheet, ii) magnification based on the optical equipment used in the experimental setup, iii) exposure time chosen on the basis of experimental needs, iv) image gain chosen on the basis of experimental needs. 
-Some simulations have been carried out to evaluate camera performances varying the parameters and the results found are listed below:
-\begin{itemize}
-	\item Increasing the Gain, the acquired image became clearer (see ~\fig\ref{CamPar}) without affecting the framerate.
-	\item Increasing the Exposure time the acquired image became clearer (see ~\fig\ref{CamPar}) but this reduces a lot the framerate. 
-	\\A compromise between the clarity of the image obtained by increasing the Exposure time and the framerate must be reached.
-	\item If the Exposure Time is too small, even increasing the Gain, the image quality is bad.
-\end{itemize}
 
 \begin{figure}[t]
 	\centering
-	\includegraphics[width=1\columnwidth]{images/CameraParameters}
-	\centering{\caption{\label{CamPar}Increase in image quality by acting on camera parameters }}
+	\includegraphics[width=1\columnwidth]{images/Algorithms}
+	\centering{\caption{\label{Algorithms}Online algorithm implementation }}
 \end{figure}
 
-The major contribution of this algorithm is represented by the acquisition that takes place in an online mode through the communication between the CCD camera and MATLAB downloading the \textbf{Windows SDK and Doc. for Scientific Cameras}.
-\\Having the data available, the algorithm proceeds in a similar way to the offline case. The analyzes are carried out cyclically on sub-groups of frames, iteratively updating the results.
-\\An on-screen ROI selection procedure has been introduced by setting the left-top corner of the image as the starting pixel and the right-down corner of the image as the end pixel, in order to obtain the desired width (W) and height (H).
-\\A DPIV analysis followed by a micro-particles counting procedure are at this point carried out for the predefined interrogation regions of interest (ROI). The DPIV approach \DS{When something is not a contribution of the paper, we will add a reference} consists of a first collection of the
-time-varying velocity vector maps and a subsequent evaluation of the cross-correlation between ROIs of consecutive pairs of images. The velocity spatial distribution along the horizontal $V_x(i,j,t)$ and vertical $V_y(i,j,t)$ directions is obtained for each frame. Spatial averaging is done so that a single velocity value is obtained for each frame. By repeating this procedure for all the frames, two signals representing the trends of the average speed over time are given, respectively $<V_x(t)>$ and $<V_y(t)>$.
-The preliminary step of DPIV setting concerns the possibility of opting to a multi-pass DFT for the DPIV analysis, through the following parameters i) number of passes that could be chosen from 1 to 4, ii) step size, iii) interrogation areas varying with the first parameter. 
-A multi-pass DFT could be used in order to increase the accuracy. A good compromise between the resolution and the computational time is given by the DFT approach with interrogation areas 64-32-16, so number of passes equal to 3, and step size 8. 
-\\There is a further choice of performing the analysis in the whole ROI (single section) or by dividing the ROI into three horizontal sections, parallel to the particles' motion direction (three sections). This choice allows to highlight through the results the different particles average speed in the edges of the channel, which is greater than the one at the center of the channel.
-\\The second type of analysis that this platform provides is the micro-particles counting.This procedure is based on highlighting the particles in the image distinguishing them from the background.
- \\The steps for the counting operation are:
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=0.8\columnwidth]{images/frames}
+	\centering{\caption{\label{frame} Offline and Online frame in comparison with the same camera parameters. Region of Interest (ROI) coordinates selection in the Online frame. }}
+\end{figure}
+
+The first step, common to both platforms, involves the camera parameters setting, through the following quantities: i) pixelsize obtained from the camera datasheet, ii) magnification based on the optical equipment used in the experimental setup, iii) exposure time chosen on the basis of experimental needs, iv) image gain chosen on the basis of experimental needs. 
+The major contribution of the Online version is represented by the acquisition that takes place in an online mode through the communication between the CCD camera and MATLAB downloading the \textbf{Windows SDK and Doc. for Scientific Cameras}. This allows to capture process frames directly from the MATLAB routine and they are ready to be used for the analysis. The Offline version, on the other hand, provides for a further step of uploading on MATLAB the video previously acquired through a dedicated software and unpack it into the corresponding frames. 
+Online frames acquisition through MATLAB allows to obtain a higher resolution process frame for the same camera parameters as it is shown in ~\fig\ref{frame}.
+\\Having the data available, the algorithm proceeds in a similar way in the two platforms.
+\\An on-screen ROI selection procedure has been introduced by setting the left-top corner of the image as the starting pixel and the right-down corner of the image as the end pixel. The resulting coordinates for the selection of the ROI are represented in ~\fig\ref{frame}: the abscissa ($x$) and ordinate ($y$) of the left-top point and the width ($W_{ROI}$) and height ($H_{ROI}$) of the region itself, obtained from the selection of the right-down point.
+\\A DPIV analysis followed by a micro-particles counting procedure are at this point carried out for the predefined interrogation Regions of Interest (ROIs). A DPIV-based algorithm provides instantaneous velocity measurements and visualization. The DPIV approach \DS{When something is not a contribution of the paper, we will add a reference} consists of a first collection of the time-varying velocity vector maps through the evaluation of the cross-correlation between ROIs of consecutive pairs of images. The velocity spatial distribution along the horizontal $V_x(i,j,t)$ and vertical $V_y(i,j,t)$ directions is obtained for each pairs of frame. Spatial averaging is done so that a single velocity value is obtained for each map. By repeating this procedure for all the frames, two signals representing the trends of the average speed over time are given, respectively $<V_x(t)>$ and $<V_y(t)>$.
+The preliminary step of DPIV setting concerns the possibility of opting to a multi-pass discrete Fourier transform (DFT) for the DPIV analysis, through the following parameters i) number of passes that could be chosen from 1 to 4, ii) step size, iii) interrogation areas varying with the first parameter. 
+A multi-pass DFT in frequency domain, as implemtend by the PIVlab tool, could be used in order to increase the accuracy. In this experimental campaign the analysis was conducted by a three-passes DFT, reaching a good compromise between the resolution and the computational time. The three interrogation areas in pixels were chosen as follows: $Area1=64$, $Area2=32$ and $Area3=16$. The step size was set equal to the half of the last interrogation area ($Area3=16$), resulting in a value equal to 8 pixels.
+\\There is a further choice of performing the analysis in the whole ROI (single section) or by dividing the ROI into three horizontal sections, parallel to the particles' motion direction (three sections) for a deeper investigation. This choice allows to highlight through the results the different particles' average speed in the edges of the channel, which is lower than the one at the center of the channel.
+Despite this possibility, in this experimental campaign it was chosen to conduct the analysis only in the single section because the goal was to compare the behavior of different types of particles and not to compare the same cells in different portions of the ROI.
+\\The second type of analysis that this platform provides is the micro-particles counting. This procedure is based on highlighting the particles in the image distinguishing them from the background. It provides a continuous counting in the time of the micro-particles number in the investigated area, avoiding any manual and individual selecting of the frames to be studied. It analyzes the video frame by frame, counts the number of particles and collects this information in a signal.
+ \\The following steps for the counting operation are all based on image processing:
  
  \begin{enumerate}
  	\item ROI selection;
@@ -256,23 +248,16 @@ A multi-pass DFT could be used in order to increase the accuracy. A good comprom
  	\item Binarization of the image;
  \end{enumerate}
 At this point a function takes as input the binary image. It traces the exterior boundaries of particles and gives the number of them found.
-Important parameters to be set are the minimum and maximum dimensions of the cells, in order to count among the found objects only those that have an appropriate size, and a threshold value, chosen to define the circularity (a threshold equal to 1 indicates a perfect circle).
+Important parameters to be set are the minimum and maximum dimensions of the searched object in pixels, in order to count among the found micro-particles only those that have an appropriate size. For the yeast cells and the silica beads the minimum area was set to 1 pixel and the maximum was set to 2 pixels. There is another parameter to be set based on the shape of the object that is a threshold value chosen to define the circularity. Due to the circular geometry of the micro-particles, the threshold was set equal to 1 that indicates a perfect circle.
+Having defined all the parameters, the exterior boundaries of micro-particles are traced and the number of them is found for each frame.
 
-
-\section{Experiments}
-
-\subsection{Experimental Setup}
+\subsection{Experimental Setup and Campaigns}
 
 The experimental set-up is composed of a syringe pump, a microfluidic chip, an opto-mechanical system and a personal computer. A representation of it is reported in ~\fig\ref{setup}. Syringe pumps (neMESYS low-pressure module, Cetoni GmbH,
-Korbussen, Germany) were used to inject the sample of particles or cells suspended in a fluid in the Y-junction squared rectilinear micro-channel (SMS0104, Thinxxs, Zweibrucken, Germany), 16~$[\rm mm]$ long and with a diameter of 320~$[\rm~\mu m]$ (see ~\fig\ref{chip}).
+Korbussen, Germany) were used to inject the sample of particles or cells suspended in a fluid in the Y-junction squared rectilinear micro-channel (SMS0104, Thinxxs, Zweibrucken, Germany), 16~$[\rm mm]$ long and with a diameter of 320~$[\rm~\mu m]$ (see ~\fig\ref{Platform}).
 
-\begin{figure}[t]
-	\centering
-	\includegraphics[width=0.5\columnwidth]{images/chip}
-	\centering{\caption{\label{chip}A microfluidic rectilinear channel with diameter = 320~$[\rm~\mu m]$ and length = 16~$[\rm mm]$.}}
-\end{figure}
 
-A CCD camera (340M Fast Frame, Thorlabs) was included in the optomechanical system (OTKB/M) Modular Optical Tweezers, Thorlabs). Visible light from the LED source illuminates the sample and is then imaged
+A CCD camera (340M Fast Frame, Thorlabs, Newton, NJ, USA) with a resolution of $640x480$ pixels (pixel size of 7.4~$[\rm~\mu m]$, square) was included in the optomechanical system ((OTKB/M) Modular Optical Tweezers, Thorlabs, Newton, NJ, USA). Visible light from the LED source illuminates the sample and is then imaged
 on the CCD camera.
 The CCD camera was connected through a USB connection with a PC for the data acquisition and the subsequent analysis phase in the dedicated software platform.
 
@@ -283,19 +268,34 @@ The CCD camera was connected through a USB connection with a PC for the data acq
 	\centering{\caption{\label{setup}A picture showing the experimental set-up.}}
 \end{figure}
 
-A magnification of 10X (PLN, Olympus) has been used to scale up the channel images to be able to see more detail and increasing resolution.
-The fluids employed for the experiments were obtained by diluting micro-particles in different solutions. The micro-particles were of two types: cells of eukaryotic origins with a diameter of 5~$[\rm~\mu m]$ and artificial silica beads with a diameter of 6~$[\rm~\mu m]$. Two types of particles have been used to investigate and compare the different behaviors of cells and synthetic particles. Four different types of living cell conditions have been examined. In particular viable cells, 2 days overgrowth, 5 days overgrowth and exposed to cell death stimuli with hydrogen peroxide ($H_2O_2$). \DS{Did we say to mention living and death cells. Didn't we?} 
-Yeast cells were diluted in a saline solution, the phospate buffered saline (PBS). By contrast, Silica beads micro-particles were diluted in two different solutions. A first one obtained by combining 20\% of water with 80\% of glycerol to avoid the deposition of the particles at the bottom of the channel thanks to the increment of the fluid density. The second solution is represented by PBS.
+A magnification of 10X (PLN, Olympus, Tokyo, Japan) has been used to scale up the channel images to be able to see more detail and increasing resolution.
+Acquisitions and analyzes were performed using a SAMSUNG Galaxy Book PC, with an Intel Core i7 processor, INTEL Iris Xe Graphics, 16 GB RAM and 512 GB SSD.
+\\The fluids employed for the experiments were obtained by diluting micro-particles in different solutions. The micro-particles were of two types: cells of eukaryotic origins with a diameter of 5~$[\rm~\mu m]$ and artificial silica beads with a diameter of 6~$[\rm~\mu m]$. Two types of particles have been used to investigate and compare the different behaviors of cells and synthetic particles. Their physical properties, such as mass, radius, volume and density, are summerized in ~\tab\ref{properties}. Four different types of yeast cell living conditions have been examined. In particular viable cells, 2 days overgrowth, 5 days overgrowth and exposed to cell death stimuli with hydrogen peroxide ($H_2O_2$). 
+Yeast cells were diluted in a saline solution, the phospate buffered saline (PBS, density of 1072 $Kg/m^3$). By contrast, Silica beads micro-particles were diluted in two different solutions. A first one (density of 1200 $Kg/m^3$) obtained by combining 20\% of water with 80\% of glycerol to avoid the deposition of the particles at the bottom of the channel thanks to the increment of the fluid density. The second solution is represented by PBS.
 The microfluidic chip was fed with fluid on which an oscillating flow was imposed.
-At the beginning a PBS flow, withoud micro-particles suspendend on it, was recorded to quantify the effect of the fluid backgroung in the images. It was injected through syringe pumps with an external oscillating pressure at a frequency of $f_i= 0.1 Hz$ and an amplitude of $A=0.1 ml/min$. 
-\\The other 40 experiments that have been carried out are summarized in ~\tab\ref{offlineexp} and ~\tab\ref{onlineexp}, distinguished according to the software platform used to analyze them (offline or online). Experiments with viable yeast cells and beads in glycerol-water solution were performed twice, to compare the results obtained with the two different platforms and test their consistency.
+At the beginning a PBS flow and then a glycerol-water flow, without micro-particles suspendend on it, was recorded to quantify the effect of the fluid backgroung in the images. It was injected through syringe pumps with an external oscillating pressure at a frequency of $f_i= 0.1 Hz$ and an amplitude of $A=0.1 ml/min$. 
+\\The other 40 experiments that have been carried out are summarized in ~\tab\ref{offlineexp} and ~\tab\ref{onlineexp}, distinguished according to the software platform used to analyze them (Offline or Online). Experiments with viable yeast cells and beads in glycerol-water solution were performed twice, to compare the results obtained with the two different platforms and test their consistency.
 For all categories of cells and particles, the sample of fluid was fed into the micro-channel using an oscillating flow at a fixed frequency of $f_i= 0.1 Hz$ and five different amplitude values $A \in{0.05, 0.07, 0.1, 0.15, 0.2 ml/min}$.
 
-\begin{table}[]
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[t]
+	\begin{tabular}{@{}lcccc@{}}
+		\toprule
+		\multicolumn{1}{c}{\textbf{Micro-particles}} & \textbf{\begin{tabular}[c]{@{}c@{}}Mass\\ {[}$Kg${]}\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Radius\\ {[}$m${]}\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Volume\\ {[}$m^3${]}\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Density\\ {[}$Kg/m^3${]}\end{tabular}} \\ \midrule
+		\textit{Yeast cells}                         & 7.37 e\textasciicircum{}-14                                      & 2.5 e\textasciicircum{}-6                                         & 6.54 e\textasciicircum{}-17                                                          & 1126                                                                                     \\
+		\textit{Silica beads}                        & 1.36 e\textasciicircum{}-13                                      & 3.0 e\textasciicircum{}-6                                         & 1.13 e\textasciicircum{}-16                                                          & 1200                                                                                     \\ \bottomrule
+	\end{tabular}
+\centering{\caption{\label{properties}Physical properties of micro-particles.}}
+\end{table}
+
+
+\begin{table}[t]
 	\begin{tabular}{@{}lp{0.85cm}c@{}}
 		\toprule
 		\rowcolor[HTML]{FFFFFF} 
-		\textbf{Microparticles}                            & \textbf{\begin{tabular}[c]{@{}c@{}}Frequency \\ $f_i$ {[}Hz{]}\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Amplitude \\ $A$\,{[}\,ml/min{]}\end{tabular}} \\ \midrule
+		\textbf{Micro-particles}                            & \textbf{\begin{tabular}[c]{@{}c@{}}Frequency \\ $f_i$ {[}$Hz${]}\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Amplitude \\ $A$\,{[}\,$ml/min${]}\end{tabular}} \\ \midrule
 		\textit{Viable Yeast cells}                        & 0.1                                                                       & 0.05, 0.07, 0.1, 015, 0.2                                                                                               \\
 		\textit{Yeast cells 2 days overgrowth}             & 0.1                                                                       & 0.05, 0.07, 0.1, 015, 0.2                                                                                               \\
 		\textit{Yeast cells 5 days overgrowth}             & 0.1                                                                       & 0.05, 0.07, 0.1, 015, 0.2                                                                                               \\
@@ -306,13 +306,13 @@ For all categories of cells and particles, the sample of fluid was fed into the 
 \centering{\caption{\label{offlineexp}Offline experimetal campaign.}}
 \end{table}
 
-\begin{table}[]
+\begin{table}[t]
 	\begin{tabular}{@{}lcc@{}}
 		\toprule
 		\rowcolor[HTML]{FFFFFF} 
-		\textbf{Microparticles}          & \textbf{\begin{tabular}[c]{@{}c@{}}Frequency \\ $f_i$ {[}Hz{]}\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Amplitude \\ $A$\,{[}\,ml/min{]}\end{tabular}} \\ \midrule
+		\textbf{Micro-particles}          & \textbf{\begin{tabular}[c]{@{}c@{}}Frequency \\ $f_i$ {[}$Hz${]}\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Amplitude \\ $A$\,{[}\,$ml/min${]}\end{tabular}} \\ \midrule
 		\textit{Viable Yeast cells}    
-		\textit{Viable Yeast cells}      & 0.1                                                                       & 0.05, 0.07, 0.1, 015, 0.2                                                   \\
+		     & 0.1                                                                       & 0.05, 0.07, 0.1, 015, 0.2                                                   \\
 		\textit{Beads in glycerol-water} & 0.1                                                                       & 0.05, 0.07, 0.1, 015, 0.2                                                   \\ \bottomrule
 	\end{tabular}
 \centering{\caption{\label{onlineexp}Online experimetal campaign.}}
@@ -348,36 +348,39 @@ For each experiment, the sample flow was acquired through a video. The data were
 	\centering{\caption{\label{campar}Camera setting parameters. }}
 \end{table}
 
-
-\begin{figure}[b]
-	\centering
-	\includegraphics[width=1\columnwidth]{images/ROI}
-	\centering{\caption{\label{roi}ROI selection and dimension.}}
-\end{figure}
-
 Through some tests, optimal camera parameters were obtained and set equal for all the experiments. In particular, the image gain was set equal to 200 and the exposure time equal to 17000~$[\rm~\mu s]$, resulting in a framerate of 57 FPS. The pixelsize value set at 7.4~$[\rm~\mu m]$ was obtained from the camera datasheet. All camera setting parameters are summerized in ~\tab\ref{campar}.
 Another important step to perform before the start of the DPIV and
 counting particles analysis is the selection of the ROI.
-It was determined as descriped in \sect\ref{sec:method}. ~\fig\ref{roi} shows the ROI selected, starting from a frame, that was set equal for all the experiments with the same type of cells.
+It was determined as described in \sect\ref{sec:method} and the coordinates are reported in ~\tab\ref{roi} . 
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[t]
+	\begin{tabular}{@{}lcccc@{}}
+		\toprule
+		\multicolumn{5}{c}{\textbf{Region of Interest (ROI)}}                                                                                         \\ \midrule
+		& \textbf{$x$} & \textbf{$y$} & \textbf{$H_{ROI}$} & \textbf{$W_{ROI}$} \\
+		\textit{Yeast cells}  & 6          & 131        & 473                                          & 360                                          \\
+		\textit{Silica beads} & 7          & 67         & 467                                          & 411                                          \\ \bottomrule
+	\end{tabular}
+	\centering{\caption{\label{roi}Region of Interest (ROI) coordinates set for the image area acquired and analyzed in the performed experiments. }}
+\end{table}
+
 
 
 ~\tab\ref{timing} summurized the temporal references that characterized the experimental campaign. They are listed in terms of camera sampling frequency, process transient time, acquisition time window, DPIV and counting particles processing Time. 
 \\The values of the processing times depend on the performance of the PC and also on the size of the selected ROI: greater regions of analysis correspond to greater processing times.
-\\ The following values were obtained by performing the analyzes on a SAMSUNG Galaxy Book PC, with an Intel Core i7 processor, INTEL Iris Xe Graphics, 16 GB RAM and 512 GB SSD, on a ROI detailed in ~\fig\ref{roi}.
+
+
+\section{Results and discussion}
+
+\subsection{Particles suspended in fluids with different densities}
 
 
 
-\subsection{Experimental Results}
+\subsection{Viable cells, Dead cells and Synthetic Particles in comparison}
 
-\subsubsection{Offline vs Online}
-
-
-
-\subsubsection{Micro-Particles counting and velocity}
-
-\paragraph{Particles suspended in fluids with different densities}
-
-\paragraph{Viable cells, Dead cells and Synthetic Particles in comparison}
+\subsection{Online vs Offline}
 
 \section{Conclusions}
 
