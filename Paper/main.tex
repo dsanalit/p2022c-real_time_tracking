@@ -206,7 +206,7 @@ In order to study the different interaction mechanisms between particles in micr
 
 %$\flowrate$, $\flowratewatercommand$,$\channelArea$ are all examples of variables defined in "symbol-definition.tex"
 
-\subsection{DPIV Online Platform Implementation}\label{sec:method}
+\subsection{DPIV-based Online Platform Implementation}\label{sec:method}
 
 \DS{Provide a little bit of scientific context where DPIV has been used. I would try to make a small search if a part from this work~\cite{2017-CaiSanBucOrtCabInt}, offline/online versions have been presented.  }
 In this paper, a DPIV online platform implementation for data acquisition and processing is proposed. Starting from a pre-existing DPIV platform that works offline, a new version of the same algorithm
@@ -318,15 +318,7 @@ For all categories of cells and particles, the sample of fluid was fed into the 
 \centering{\caption{\label{onlineexp}Online experimetal campaign.}}
 \end{table}
 
-For each experiment, the sample flow was acquired through a video. The data were recorded considering different time intervals in the two types of algorithms:
-\begin{itemize}
-	\item \textbf{Offline algorithm}: data recorded for 60 seconds, with a video frame rate of 57 frames per second, around 3420 frames per experiment.
-	\item \textbf{Online algorithm}: data recorded for 15 seconds, with a video frame rate of 57 frames per second, around 855 frames per experiment. 
-\end{itemize}
-
-% Please add the following required packages to your document preamble:
-% \usepackage{booktabs}
-\begin{table}[t]
+\begin{table}[h!]
 	\begin{tabular}{@{}llc@{}}
 		\toprule
 		\textbf{}                       & \multicolumn{1}{c}{\textbf{Offline}} & \textbf{Online}                            \\ \midrule
@@ -336,10 +328,10 @@ For each experiment, the sample flow was acquired through a video. The data were
 		\textbf{DPIV processing time}               & 67 minutes                           & 19 minutes                          \\
 		\textbf{Counting particles processing time} & 5 minutes                            & \textit{work in progress}           \\ \bottomrule
 	\end{tabular}
-\centering{\caption{\label{timing}Experimetal campaign timing.}}
+	\centering{\caption{\label{timing}Experimetal campaign timing.}}
 \end{table}
 
-\begin{table}[t]
+\begin{table}[h!]
 	\begin{tabular}{@{}llll@{}}
 		\toprule
 		\textbf{Pixelsize}         & \textbf{Magnification}  & \textbf{Exposure Time}       & \textbf{Image Gain}     \\ \midrule
@@ -348,14 +340,7 @@ For each experiment, the sample flow was acquired through a video. The data were
 	\centering{\caption{\label{campar}Camera setting parameters. }}
 \end{table}
 
-Through some tests, optimal camera parameters were obtained and set equal for all the experiments. In particular, the image gain was set equal to 200 and the exposure time equal to 17000~$[\rm~\mu s]$, resulting in a framerate of 57 FPS. The pixelsize value set at 7.4~$[\rm~\mu m]$ was obtained from the camera datasheet. All camera setting parameters are summerized in ~\tab\ref{campar}.
-Another important step to perform before the start of the DPIV and
-counting particles analysis is the selection of the ROI.
-It was determined as described in \sect\ref{sec:method} and the coordinates are reported in ~\tab\ref{roi} . 
-
-% Please add the following required packages to your document preamble:
-% \usepackage{booktabs}
-\begin{table}[t]
+\begin{table}[h!]
 	\begin{tabular}{@{}lcccc@{}}
 		\toprule
 		\multicolumn{5}{c}{\textbf{Region of Interest (ROI)}}                                                                                         \\ \midrule
@@ -366,6 +351,17 @@ It was determined as described in \sect\ref{sec:method} and the coordinates are 
 	\centering{\caption{\label{roi}Region of Interest (ROI) coordinates set for the image area acquired and analyzed in the performed experiments. }}
 \end{table}
 
+For each experiment, the sample flow was acquired through a video. The data were recorded considering different time intervals in the two types of algorithms:
+\begin{itemize}
+	\item \textbf{Offline algorithm}: data recorded for 60 seconds, with a video frame rate of 57 frames per second, around 3420 frames per experiment.
+	\item \textbf{Online algorithm}: data recorded for 15 seconds, with a video frame rate of 57 frames per second, around 855 frames per experiment. 
+\end{itemize}
+
+
+Through some tests, optimal camera parameters were obtained and set equal for all the experiments. In particular, the image gain was set equal to 200 and the exposure time equal to 17000~$[\rm~\mu s]$, resulting in a framerate of 57 FPS. The pixelsize value set at 7.4~$[\rm~\mu m]$ was obtained from the camera datasheet. All camera setting parameters are summerized in ~\tab\ref{campar}.
+Another important step to perform before the start of the DPIV and
+counting particles analysis is the selection of the ROI.
+It was determined as described in \sect\ref{sec:method} and the coordinates are reported in ~\tab\ref{roi} . 
 
 
 ~\tab\ref{timing} summurized the temporal references that characterized the experimental campaign. They are listed in terms of camera sampling frequency, process transient time, acquisition time window, DPIV and counting particles processing Time. 
@@ -374,13 +370,42 @@ It was determined as described in \sect\ref{sec:method} and the coordinates are 
 
 \section{Results and discussion}
 
+Looking at the movement of the micro-particles along the micro-channel and considering also the image orientation, the dominant velocity component is the horizonatal one. In fact, the trend of the horizontal velocity component $<V_x(t)>$ shows the periodicity of the oscillating input flow imposed. This component is the one taken in consideration for the following analysis. 
+\\The micro-particles hydrodynamic response in time domain was evaluated by computing the range of the velocity signal $<V_x(t)>$, according to eq. \ref{eqn:range}. 
+\begin{equation}
+	\label{eqn:range}
+	Range<V_x(t)>=max(<V_x(t)>)-min(<V_x(t)>)
+\end{equation}
+The micro-particles hydrodynamic response in frequency domain was evaluated by computing the spectrum of the velocity signal $<V_x(t)>$, in order to obtain information on the frequency components involved in the dynamic process.
+
 \subsection{Particles suspended in fluids with different densities}
 
+The described algorithm was used to study how the hydrodynamic response of synthetic micro particles, silica beads, can be related to their physical properties and differ according to the fluid in which they are suspended. To compare the results obtained for the same kind of particles suspended in different fluids, the velocity signal $<V_x(t)>$ was computed per each experiment, by the DPIV-based algorithm described in \sect\ref{sec:method}, and then the spectrum of each signal was evaluated. 
 
 
-\subsection{Viable cells, Dead cells and Synthetic Particles in comparison}
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=1\columnwidth]{images/Beads}
+	\centering{\caption{\label{Beads}The velocity trends $<V_x(t)>$ obtained in the experimental condition with { $f_i= 0.1 Hz$, $A \in{0.1 ml/min}$: (a) silica beads in PBS and (b) silica beads in glycerol-water solution.}}}
+\end{figure}
 
-\subsection{Online vs Offline}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\columnwidth]{images/BeadsFinal}
+	\centering{\caption{\label{BeadsFinal}The parameter ($Range<V_x(t)>$) and the parameter ($Amplitude peak$) at the fundamental frequency varying the oscillating input flow strength at the inlet $A$ at a frequency $f_i= 0.1 Hz$ for the silica beads in PBS and glycerol-water (GW) solution.}}
+\end{figure}
+
+It can be noted that the speed signal relating to the silica beads sample in the PBS solution (see ~\fig\ref{Beads}(a)) is noisier than the speed signal relating to the silica beads sample in the glycerol-water solution (see ~\fig\ref{Beads}(b)). The problem is due to the fact that since the silica beads have a higher density than PBS, they tend to settle in the bottom of the micro channel, putting up resistance to the imposed hydrodynamic actuation at the input. This problem has been solved by suspending beads in a solution having the same density as them. This allows beads to float in the fluid and not to pose resistance to the hydrodynamic input that is imposed. The speed signal relating to the silica beads sample in the glycerol-water solution (see ~\fig\ref{Beads}(b)) shows a shape similar to that expected from the input flux supplied, a sine wave with frequency $f_i= 0.1 Hz$, detected from the fundamental frequency in the spectrum, and amplitude $A={0.1 ml/min}$.
+
+
+The micro-particles hydrodynamic response in time domain was evaluated by computing the range of the velocity signal $<V_x(t)>$, as shown in eq. \ref{eqn:range}. ~\fig\ref{BeadsFinal} shows the value of the velocity range ($Range<V_x(t)>$) and the peak at the fundamental frequency ($Amplitude peak$) for each experimental condition. The two curves are related to silica beads in the two different solution considered and each point of the curves is correlated to the amplitude of the external oscillating input flow strength $A$ with a constant frequency $f_i= 0.1 Hz$. 
+\\The curve related to the beads in PBS does not show any correlation between the imposed input and the hydrodynamic response of the micro-particles. The curve relating to the beads in the glycerol-water solution shows how the parameters examined in the time domain and in the frequency domain increase as the input amplitude increases, showing a correlation between the input and the hydrodynamic response of the micro-particles.
+
+For what has been said up to now, in \sect\ref{sec:comparison} in which the comparison between synthetic particles, live cells and cells exposed to death stimuli is made, and in \sect\ref{sec:OnlineOffline} in which the results obtained from the online and offline platform are compared, only the results relating to silica beads in the glycerol-water solution were considered because they allowed a better characterization of the process.
+
+\subsection{Viable cells, Dead cells and Synthetic Particles in comparison}\label{sec:comparison}
+
+\subsection{Online vs Offline}\label{sec:OnlineOffline}
 
 \section{Conclusions}
 
