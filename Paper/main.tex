@@ -284,8 +284,8 @@ For all categories of cells and particles, the sample of fluid was fed into the 
 	\begin{tabular}{@{}lcccc@{}}
 		\toprule
 		\multicolumn{1}{c}{\textbf{Micro-particles}} & \textbf{\begin{tabular}[c]{@{}c@{}}Mass\\ {[}$Kg${]}\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Radius\\ {[}$m${]}\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Volume\\ {[}$m^3${]}\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Density\\ {[}$Kg/m^3${]}\end{tabular}} \\ \midrule
-		\textit{Yeast cells}                         & 7.37 e\textasciicircum{}-14                                      & 2.5 e\textasciicircum{}-6                                         & 6.54 e\textasciicircum{}-17                                                          & 1126                                                                                     \\
-		\textit{Silica beads}                        & 1.36 e\textasciicircum{}-13                                      & 3.0 e\textasciicircum{}-6                                         & 1.13 e\textasciicircum{}-16                                                          & 1200                                                                                     \\ \bottomrule
+		\textit{Yeast cells}                         & 7.37 $e^{-14}$                                      & 2.5 $e^{-6}$                                       & 6.54 $e^{-17}$                                                          & 1126                                                                                     \\
+		\textit{Silica beads}                        & 1.36 $e^{-13}$                                      & 3.0 $e^{-6}$                                         & 1.13 $e^{-16}$                                                         & 1200                                                                                     \\ \bottomrule
 	\end{tabular}
 \centering{\caption{\label{properties}Physical properties of micro-particles.}}
 \end{table}
@@ -386,7 +386,7 @@ The described algorithm was used to study how the hydrodynamic response of synth
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=1\columnwidth]{images/Beads}
-	\centering{\caption{\label{Beads}The velocity trends $<V_x(t)>$ obtained in the experimental condition with { $f_i= 0.1 Hz$, $A \in{0.1 ml/min}$: (a) silica beads in PBS and (b) silica beads in glycerol-water solution.}}}
+	\centering{\caption{\label{Beads}The velocity trends $<V_x(t)>$ and its spectrum obtained in the experimental condition with {$A=0.1 ml/min, f_i= 0.1 Hz$}: (a) silica beads in PBS and (b) silica beads in glycerol-water solution.}}
 \end{figure}
 
 \begin{figure}[h!]
@@ -395,6 +395,7 @@ The described algorithm was used to study how the hydrodynamic response of synth
 	\centering{\caption{\label{BeadsFinal}The parameter ($Range<V_x(t)>$) and the parameter ($Amplitude peak$) at the fundamental frequency varying the oscillating input flow strength at the inlet $A$ at a frequency $f_i= 0.1 Hz$ for the silica beads in PBS and glycerol-water (GW) solution.}}
 \end{figure}
 
+In ~\fig\ref{Beads}, for silica beads in PBS and in glycerol-water solution, in the experimental condition with {$A=0.1 ml/min, f_i= 0.1 Hz$} and in a time interval of about 60 $s$, the velocity signals in the dominant component  $<V_x(t)>$ and their spectrum are plotted.
 It can be noted that the speed signal relating to the silica beads sample in the PBS solution (see ~\fig\ref{Beads}(a)) is noisier than the speed signal relating to the silica beads sample in the glycerol-water solution (see ~\fig\ref{Beads}(b)). The problem is due to the fact that since the silica beads have a higher density than PBS, they tend to settle in the bottom of the micro channel, putting up resistance to the imposed hydrodynamic actuation at the input. This problem has been solved by suspending beads in a solution having the same density as them. This allows beads to float in the fluid and not to pose resistance to the hydrodynamic input that is imposed. The speed signal relating to the silica beads sample in the glycerol-water solution (see ~\fig\ref{Beads}(b)) shows a shape similar to that expected from the input flux supplied, a sine wave with frequency $f_i= 0.1 Hz$, detected from the fundamental frequency in the spectrum, and amplitude $A={0.1 ml/min}$.
 
 
@@ -404,6 +405,40 @@ The micro-particles hydrodynamic response in time domain was evaluated by comput
 For what has been said up to now, in \sect\ref{sec:comparison} in which the comparison between synthetic particles, live cells and cells exposed to death stimuli is made, and in \sect\ref{sec:OnlineOffline} in which the results obtained from the online and offline platform are compared, only the results relating to silica beads in the glycerol-water solution were considered because they allowed a better characterization of the process.
 
 \subsection{Viable cells, Dead cells and Synthetic Particles in comparison}\label{sec:comparison}
+
+The DPIV-based algorithm and micro-particles counting one were used to analyze the data collected in the experimental campaigns related to yeast cells in different living conditions. This allowed to investigate how the hydrodynamic response of cells could be correlated to their living condition.  To compare the results obtained for different kind of cells' living condition, the velocity signal $<V_x(t)>$ was computed by the DPIV-based algorithm described in \sect\ref{sec:method}, the spectrum of each signal was evaluated and the average number of micro-particles $<N_p(t)>$ was computed for each experiment. 
+In particular, the results relating to viable yeast cells and viable yeast cells exposed to cell death stimuli, induced by an apoptotic process of death, i.e. a mechanism of genetically programmed death, are reported. These two conditions allowed to correlate the hydrodynamic response of the micro-particles to their physical properties according to the different living conditions. This allowed a characterization of the same type of cells, the yeast cells, in the different phases of the cell cycle.
+The same analysis did not provide significant results in the case of 2 and 5 days overgrowth cells, therefore the results obtained in these two cases will be bypassed in subsequent comparisons.
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=1\columnwidth]{images/Yeast}
+	\centering{\caption{\label{Yeast}The velocity trends $<V_x(t)>$ in the experimental condition with {$A=0.1 ml/min, f_i= 0.1 Hz$}: (a) viable yeast cell and (b) yeast cell exposed to cell death stimuli.}}
+\end{figure}
+
+In ~\fig\ref{Yeast}, for viable and exposed to cell death stimuli yeast cells, in the experimental condition with {$A=0.1 ml/min, f_i= 0.1 Hz$} and in a time interval of about 60 $s$, the velocity signals in the dominant component  $<V_x(t)>$ are plotted. The different oscillating trends of the velocity signals highlights the effects induced by the oscillating input flow in different cell living condition. In particular, considering the same experimental condition, the amplitude of the velocity trend for viable yeast cells (see ~\fig\ref{Yeast}(a)) is lower the one found for yeast cells exposed to cell death stimuli. 
+In the condition of viable yeast cells there is a greater resistance from the cells to the force imposed on the input, resulting in a lower maximum speed value reached compared to that of yeast cells exposed to cell death stimuli.
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=1\columnwidth]{images/VelPar}
+	\centering{\caption{\label{VelPar}The velocity trend $<V_x(t)>$ compared with the trend of $<N_p(t)>$ in the experimental condition with viable yeast cells and {$A=0.1 ml/min, f_i= 0.1 Hz$.}}}
+\end{figure}
+
+In ~\fig\ref{VelPar} the superposition of the trend of  $<V_x(t)>$ and the trend of $<N_p(t)>$ is plotted, in the experimental condition with viable yeast cells and {$A=0.1 ml/min, f_i= 0.1 Hz$}. In the instants in which the speed signal is 0, the signal of the trend of the particles assumes the maximum value; this is due to the fact that when the speed is zero, particles stop and accumulate.
+\\In the instants in which the velocity signal is at the maximum or minimum value, the particle trend signal assumes the minimum value, because particles are in motion, in one direction or in the other, and the fewest number of them are counted. This is a consequence of the hydrodynamic stimulus imposed by the mechanical actuation through the syringe pumps flow rate: particles tend to be highly concentrated when the stimulus reaches the zero value, otherwise they are more dispersed during the rising phase of the stimulus, indipendently of its direction.
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=1\columnwidth]{images/Comparison}
+	\centering{\caption{\label{Comparison}The parameter ($Range<V_x(t)>$) varying the oscillating input flow strength at the inlet $A$ at a frequency $f_i= 0.1 Hz$: comparison between viable yeast cells, yeast cells exposed to cell death stimuli and silica beads in the glycerol-water (GW) solution.}}
+\end{figure}
+
+~\fig\ref{Comparison} shows the value of the velocity range ($Range<V_x(t)>$) for each experimental condition. The three curves are related to viable yeast cells, yeast cells exposed to cell death stimuli and silica beads in the glycerol-water solution. Each point of the curves is correlated to the amplitude of the external oscillating input flow strength $A$ with a constant frequency $f_i= 0.1 Hz$. 
+Because of the fact that micro-particles of different natures are being compared, a normalization of the velocity range $Range<V_x(t)>$ to the average number of particles was carried out. This procedure was applied due to the fact that the micro-particles density is different in each experimental condition and thanks to this normalization it is possible to compare the results obtained. 
+\\The micro-particles hydrodynamic response comparison in time domain was evaluated by computing the range of the velocity signal $<V_x(t)>$, as shown in eq. \ref{eqn:range} and normalizing it with respect to the average number of micro-particles $<N_p(t)>$, computed in the investigated area following the procedure described in \sect\ref{sec:method}.
+From ~\fig\ref{Comparison} it is possible to notice that, for all the experimental conditions, the curve relating to yeast cells exposed to cell death stimuli is always in the middle, between that relating to viable yeast cells and that relating to silica beads in the glycerol-water solution.
+\\Yeast cells vary their behavior according to their different living conditions and in particular when they are exposed to death stimuli, they tend to assume a behavior more similar to that of silica beads; therefore they change in a lower density, more comparable to that of the fluid on which they are suspended, putting no resistance to it and therefore reaching higher velocity values.
 
 \subsection{Online vs Offline}\label{sec:OnlineOffline}
 
