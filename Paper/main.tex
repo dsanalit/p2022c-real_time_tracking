@@ -194,11 +194,11 @@ This paper ecc...
 
 \subsection{System Design and Hardware Platform Realization}\label{sec:design}
 
-\begin{figure}[!h]
+\begin{figure*}[t]
 	\centering
-	\includegraphics[width=1\columnwidth]{images/PlatformDesign}
+	\includegraphics[width=2\columnwidth]{images/PlatformDesign}
 	\centering{\caption{\label{Platform}System Design and Hardware Platform Realization block schemes }}
-\end{figure}
+\end{figure*}
 
 From a methodological point of view, the experimental characterization of the process takes place through the acquisition of videos that allow studying different interaction mechanisms between particles/cells subjected to different external stresses.
 The captured videos are then analyzed using Digital Particle Image Velocimetry (DPIV).
@@ -214,15 +214,15 @@ that works online has been implemented. ~\fig\ref{Algorithms} shows a schematic 
 
 
 
-\begin{figure}[t]
+\begin{figure*}[t]
 	\centering
-	\includegraphics[width=1\columnwidth]{images/Algorithms}
+	\includegraphics[width=2\columnwidth]{images/Algorithms}
 	\centering{\caption{\label{Algorithms}Online algorithm implementation }}
-\end{figure}
+\end{figure*}
 
 \begin{figure}[t]
 	\centering
-	\includegraphics[width=0.8\columnwidth]{images/frames}
+	\includegraphics[width=1\columnwidth]{images/frames}
 	\centering{\caption{\label{frame} Offline and Online frame in comparison with the same camera parameters. Region of Interest (ROI) coordinates selection in the Online frame. }}
 \end{figure}
 
@@ -262,11 +262,11 @@ on the CCD camera.
 The CCD camera was connected through a USB connection with a PC for the data acquisition and the subsequent analysis phase in the dedicated software platform.
 
 
-\begin{figure}[t]
+\begin{figure*}[t]
 	\centering
-	\includegraphics[width=1\columnwidth]{images/setup}
+	\includegraphics[width=2\columnwidth]{images/setup}
 	\centering{\caption{\label{setup}A picture showing the experimental set-up.}}
-\end{figure}
+\end{figure*}
 
 A magnification of 10X (PLN, Olympus, Tokyo, Japan) has been used to scale up the channel images to be able to see more detail and increasing resolution.
 Acquisitions and analyzes were performed using a SAMSUNG Galaxy Book PC, with an Intel Core i7 processor, INTEL Iris Xe Graphics, 16 GB RAM and 512 GB SSD.
@@ -306,7 +306,7 @@ For all categories of cells and particles, the sample of fluid was fed into the 
 \centering{\caption{\label{offlineexp}Offline experimetal campaign.}}
 \end{table}
 
-\begin{table}[t]
+\begin{table}[t!]
 	\begin{tabular}{@{}lcc@{}}
 		\toprule
 		\rowcolor[HTML]{FFFFFF} 
@@ -389,11 +389,11 @@ The described algorithm was used to study how the hydrodynamic response of synth
 	\centering{\caption{\label{Beads}The velocity trends $<V_x(t)>$ and its spectrum obtained in the experimental condition with {$A=0.1 ml/min, f_i= 0.1 Hz$}: (a) silica beads in PBS and (b) silica beads in glycerol-water solution.}}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure*}[t]
 	\centering
-	\includegraphics[width=1\columnwidth]{images/BeadsFinal}
+	\includegraphics[width=2\columnwidth]{images/BeadsFinal}
 	\centering{\caption{\label{BeadsFinal}The parameter ($Range<V_x(t)>$) and the parameter ($Amplitude peak$) at the fundamental frequency varying the oscillating input flow strength at the inlet $A$ at a frequency $f_i= 0.1 Hz$ for the silica beads in PBS and glycerol-water (GW) solution.}}
-\end{figure}
+\end{figure*}
 
 In ~\fig\ref{Beads}, for silica beads in PBS and in glycerol-water solution, in the experimental condition with {$A=0.1 ml/min, f_i= 0.1 Hz$} and in a time interval of about 60 $s$, the velocity signals in the dominant component  $<V_x(t)>$ and their spectrum are plotted.
 It can be noted that the speed signal relating to the silica beads sample in the PBS solution (see ~\fig\ref{Beads}(a)) is noisier than the speed signal relating to the silica beads sample in the glycerol-water solution (see ~\fig\ref{Beads}(b)). The problem is due to the fact that since the silica beads have a higher density than PBS, they tend to settle in the bottom of the micro channel, putting up resistance to the imposed hydrodynamic actuation at the input. This problem has been solved by suspending beads in a solution having the same density as them. This allows beads to float in the fluid and not to pose resistance to the hydrodynamic input that is imposed. The speed signal relating to the silica beads sample in the glycerol-water solution (see ~\fig\ref{Beads}(b)) shows a shape similar to that expected from the input flux supplied, a sine wave with frequency $f_i= 0.1 Hz$, detected from the fundamental frequency in the spectrum, and amplitude $A={0.1 ml/min}$.
@@ -441,6 +441,43 @@ From ~\fig\ref{Comparison} it is possible to notice that, for all the experiment
 \\Yeast cells vary their behavior according to their different living conditions and in particular when they are exposed to death stimuli, they tend to assume a behavior more similar to that of silica beads; therefore they change in a lower density, more comparable to that of the fluid on which they are suspended, putting no resistance to it and therefore reaching higher velocity values.
 
 \subsection{Online vs Offline}\label{sec:OnlineOffline}
+
+To test the consistency of the two DPIV-based platform implementations, a subset of the experiments was tested and analyzed also through the DPIV-based online platform implementation, detailed in ~\tab\ref{onlineexp}. Two categories of micro-particles were considered, more precisely viable yeast cells and silica beads in the glycerol-water solution. The sample of fluid was fed into the micro-channel using an oscillating flow at a fixed frequency of $f_i= 0.1 Hz$ and five different amplitude values $A \in{0.05, 0.07, 0.1, 0.15, 0.2 ml/min}$. Process frames were acquired for a time interval of 15 $s$ for each experimental condition. 
+\\The results obtained through the online platform were compared with those obtained through the offline platform for the same micro-particle category and experimental condition.
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=1\columnwidth]{images/OnOff}
+	\centering{\caption{\label{OnOff}Superimposition of the velocity trends $<V_x(t)>$ and its spectrum obtained in the experimental condition with {$A=0.1 ml/min, f_i= 0.1 Hz$} through online and offline platforms: (a) viable yeast cells and (b) silica beads in glycerol-water solution.}}
+\end{figure}
+
+\begin{figure*}[t]
+	\centering
+	\includegraphics[width=2\columnwidth]{images/ComparisonOnOff}
+	\centering{\caption{\label{ComparisonOnOff}Comparison of the parameter ($Range<V_x(t)>$) and the parameter ($Amplitude peak$) at the fundamental frequency varying the oscillating input flow strength at the inlet $A$ at a frequency $f_i= 0.1 Hz$ through online and offline platforms: (a) viable yeast cells and (b) silica beads in glycerol-water (GW) solution.}}
+\end{figure*}
+
+In ~\fig\ref{OnOff}, for viable yeast cells and silica beads in the glycerol-water solution, in the experimental condition with {$A=0.1 ml/min, f_i= 0.1 Hz$} and in a time interval of about 15 $s$, the superimposition of the velocity signals in the dominant component  $<V_x(t)>$ and of their spectrum are plotted.
+From a first comparison it can be seen that the two curves are perfectly superimposable: the velocity values and the amplitude of the frequency peak are comparable in the two cases.
+~\fig\ref{ComparisonOnOff} shows the value of the velocity range ($Range<V_x(t)>$) and the peak at the fundamental frequency ($Amplitude peak$) for the two experimental condition. The two plots are related to viable yeast cells and to silica beads in the glycerol-water solution in the online e offline case. Each point of the curves is correlated to the amplitude of the external oscillating input flow strength $A$ with a constant frequency $f_i= 0.1 Hz$. 
+The comparison was made in the time and frequency domain and also in terms of statistical parameters, calculating the variations, indicated as $\Delta$, between two point of the curves correlated to the same amplitude of the external oscillating input flow strength $A$, the average among the various $\Delta$ values, the standard deviation and the coefficient of variation. This last is a dispersion index that allows to compare measurements of phenomena referred to different units of measurement, as it is a dimensionless quantity. 
+\\It was calculated to establish which approach is more robust between the comparison in the time domain through the velocity range ($Range<V_x(t)>$) or in the frequency domain through the peak at the fundamental frequency ($Amplitude peak$).
+\\Being $\mu\neq0$ the arithmetic mean of a quantity and $\sigma$ its standard deviation, then the coefficient of variation is:
+
+\begin{equation}
+	\label{eqn:coefficient}
+	\sigma^*=\frac{\sigma}{ \left|\mu\right|}
+\end{equation}
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=1\columnwidth]{images/Coeff}
+	\centering{\caption{\label{Coeff}Coefficient of variation evaluated from the $Range<V_x(t)>$ parameter and the $Amplitude peak$ parameter: (a) viable yeast cells and (b) silica beads in glycerol-water (GW) solution.}}
+\end{figure}
+
+The coefficient of variation is often compared between two or more groups to understand which group has a lower standard deviation relative to its mean. 
+\\~\fig\ref{Coeff} shows a bar graph representing the value of the coefficients of variation calculated from the $Range<V_x(t)>$ parameter and the $Amplitude peak$ for both categories of micro-particles: viable yeast cells and silica beads in the glycerol-water solution. 
+In both cases there is a smaller coefficient of variation calculated from the $Amplitude peak$ values. The frequency approach could be considered more robust because it is associated to a lower coefficient of variation.
 
 \section{Conclusions}
 
