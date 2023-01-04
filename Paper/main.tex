@@ -121,8 +121,8 @@
 
 \usepackage{caption}
 %\usepackage{caption} allows customization of appearance and placement of captions for figures, tables, etc.
-%\usepackage{subcaption}
-\usepackage{subfig}
+\usepackage{subcaption}
+%\usepackage{subfigure}
 
 
 \usepackage{tikz}
@@ -191,13 +191,14 @@ This paper ecc...
 
 
 \section{Materials and Methods}
+This chapter of the paper is organized as follow. \sect\ref{sec:design} provides a schematic description of the hardware platform realization, \sect\ref{sec:method} describes the applied methodology and in \sect\ref{sec:setup} the experimental setup and campaigns are presented.
 
 \subsection{System Design and Hardware Platform Realization}\label{sec:design}
 
 \begin{figure*}[t]
 	\centering
 	\includegraphics[width=2\columnwidth]{images/PlatformDesign}
-	\centering{\caption{\label{Platform}System Design and Hardware Platform Realization block schemes }}
+	\centering{\caption{\label{Platform}System Design and Hardware Platform Realization block schemes.}}
 \end{figure*}
 
 From a methodological point of view, the experimental characterization of the process takes place through the acquisition of videos that allow studying different interaction mechanisms between particles/cells subjected to different external stresses.
@@ -206,13 +207,11 @@ In order to study the different interaction mechanisms between particles in micr
 
 %$\flowrate$, $\flowratewatercommand$,$\channelArea$ are all examples of variables defined in "symbol-definition.tex"
 
-\subsection{DPIV-based Online Platform Implementation}\label{sec:method}
+\subsection{DPIV-based online Platform Implementation}\label{sec:method}
 
 \DS{OK ---- Provide a little bit of scientific context where DPIV has been used. I would try to make a small search if a part from this work~\cite{2017-CaiSanBucOrtCabInt}, offline/online versions have been presented.  }
-In this paper, a DPIV online platform implementation for data acquisition and processing is proposed. Starting from a pre-existing DPIV platform that works offline\DS{OK ---- add reference and refer to the previous work}, a new version of the same algorithm
-that works online has been implemented. The feature that most diversifies the two algorithms is based on the fact that the offline algorithm works on a video acquired in a moment before the analysis that is carried out and through a different software from the one on which the analysis routine runs.
-\DS{OK ---- In general I would try to go directly to the point without adding long sentences as "is based on the fact that"}
-\DS{My proposal would be: The key distinction between the two approaches is that the offline algorithm operates on a video captured at an earlier time and uses a slight different software platform than the one employed for the online analysis. }
+In this paper, a DPIV online platform implementation for data acquisition and processing is proposed. Starting from a pre-existing DPIV platform that works offline proposed in.....\DS{OK ---- add reference and refer to the previous work}, a new version of the same algorithm
+that works online has been implemented. The key distinction between the two approaches is that the offline algorithm operates on a video captured at an earlier time and uses a slight different software platform than the one employed for the analysis.
 ~\fig\ref{Algorithms} shows a schematic of the two implementations and highlights the main differences.
 
 
@@ -220,54 +219,45 @@ that works online has been implemented. The feature that most diversifies the tw
 \begin{figure*}[t]
 	\centering
 	\includegraphics[width=2\columnwidth]{images/Algorithms}
-	\centering{\caption{\label{Algorithms}Online algorithm implementation }}
+	\centering{\caption{\label{Algorithms}DPIV-based offline and online algorithm implementation.}}
 \end{figure*}
 
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=1\columnwidth]{images/frames}
-	\centering{\caption{\label{frame} Offline and Online frame in comparison with the same camera parameters. ROI coordinates selection in the Online frame. }}
+	\centering{\caption{\label{frame} Offline and online frame in comparison with the same camera parameters. ROI coordinates selection in the online frame. }}
 \end{figure}
 
-Both implementations share the initial steps of establishing the camera's settings by making adjustments to the pixel size parameters listed in the camera datasheet, the desired magnification, the exposure time and the image gain. \DS{I tried to wirte down these concepts in a less schematical way. You've done a good job by changing them from bullet lists to this format. I leave the other parts of the text for you, so that you can try to rewrite them as I wrote this one. Additional details about the image gain could be provided.}
-The major difference of the online version is represented by the acquisition that takes place in an online mode through the communication between the CCD camera and the PC. \DS{I would add these implementation details about the software in the experimental setup. I'd focus on the methodology in this section. } MATLAB downloading the \textbf{Windows SDK and Doc. for Scientific Cameras}. This allows to capture process frames directly from the MATLAB routine and they are ready to be used for the analysis. The Offline version, on the other hand, provides for a further step of uploading on MATLAB the video previously acquired through a dedicated software and unpack it into the corresponding frames. 
+Both implementations share the initial steps of establishing the camera's settings (\fig\ref{Algorithms} block (1)) by making adjustments to the pixel size parameters listed in the camera datasheet, the magnification, the exposure time and the image gain. In particular, this last parameter is an amplification factor applied to all pixel values used for adjusting the brightness.
+The major difference of the online version is represented by the acquisition that takes place in an online mode through the communication between the CCD camera and the PC (\fig\ref{Algorithms} block (4)). This allows to capture process frames directly from the MATLAB routine and they are ready to be used for the analysis (\fig\ref{Algorithms} block (5)). The offline version, on the other hand, provides for a further step of uploading on MATLAB the video previously acquired through a dedicated software (\fig\ref{Algorithms} block (2)) and unpack it into the corresponding frames (\fig\ref{Algorithms} block (3)). 
 Online frames acquisition through MATLAB allows to obtain a higher resolution process frame for the same camera parameters as it is shown in ~\fig\ref{frame}\DS{OK ---- to be verified}.
 Having the data available, the algorithm proceeds in a similar way in the two implementations. 
-\newcommand{\abscissa}{x}
-\newcommand{\ordinate}{y}
-\newcommand{\mean}[1]{<V_{#1}(t)>}
-\newcommand{\spatialmean}[3]{V_{#1}({#2},{#3},t)}
-
-An on-screen Region of Interest (ROI) selection procedure allows setting the left-top corner of the image as the starting pixel and the right-down corner of the image as the end pixel. The resulting coordinates for the selection of the ROI are represented in ~\fig\ref{frame}: the abscissa ($\abscissa$) and ordinate ($\ordinate$) of the left-top point and the width ($W_{ROI}$) and height ($H_{ROI}$) of the region itself, obtained from the selection of the right-down point. \DS{OK ---- Try to define the symbols so that when you want to reuse them, it will be faster. Try to follow the commands I defined and try to use this approach for the whole text. It will be very useful in the next future. I'm leaving them in the text for the moment.}
-A DPIV analysis followed by a micro-particles counting procedure are at this point carried out for the predefined interrogation ROIs. A DPIV-based algorithm provides instantaneous velocity measurements and visualization. The DPIV approach consists of a first collection of the time-varying velocity vector maps through the evaluation of the cross-correlation between ROIs of consecutive pairs of images \DS{OK ---- I'd try to provide some context saying that you're going to summarize in few lines the approach}. 
-The velocity spatial distribution along the horizontal $\spatialmean{x}{i}{j}$ and vertical $\spatialmean{y}{i}{j}$ directions is obtained for each pairs of frames. Spatial averaging is done so that a single velocity value is obtained for each map. By repeating this procedure for all the frames, two signals representing the trends of the average speed over time are given, respectively $\mean{x}$ and $\mean{y}$.
-The preliminary step of DPIV setting concerns the possibility of opting for a multi-pass discrete Fourier transform (DFT) for the DPIV analysis, through the following parameters i) number of passes that could be chosen from 1 to 4, ii) step size, iii) interrogation areas varying with the first parameter \DS{as before, less schematic}. 
-A multi-pass DFT in frequency domain, as implemtend by the PIVlab tool, could be used in order to increase the accuracy. In this experimental campaign the analysis was conducted by a three-passes DFT, reaching a good compromise between the resolution and the computational time. The three interrogation areas in pixels were chosen as follows: $Area1=64$, $Area2=32$ and $Area3=16$. The step size was set equal to the half of the last interrogation area ($Area3=16$), resulting in a value equal to 8 pixels \DS{try to be consistent with measurement units. I'd define a way and then I'd use the same way in the entire text}.
-There is a further choice of performing the analysis in the whole ROI (single section) or by dividing the ROI into three horizontal sections, parallel to the particles' motion direction (three sections) for a deeper investigation. This choice allows to highlight through the results the different particles' average speed in the edges of the channel, which is lower than the one at the center of the channel\DS{Although it may add content to the text, I wouldn't use such an argument because there are no further details explained. The risk is that we may confuse the reviewers and in general the readers.}.
-Despite this possibility, in this experimental campaign it was chosen to conduct the analysis only in the single section because the goal was to compare the behavior of different types of particles and not to compare the same cells in different portions of the ROI.
-The second type \DS{Which one was the first type? If you wanna use this structure, you have to better prepare the reader.} of analysis that this platform provides is the micro-particles counting. This procedure is based on highlighting the particles in the image distinguishing them from the background. It provides a continuous counting in the time of the micro-particles number in the investigated area, avoiding any manual and individual selecting of the frames to be studied \DS{Although current approaches rely on manual counting or others, (add references if any) the provided implementation makes use of a counting algorithm ...}. It allows to analyze the video frame by frame, count the number of particles and collect this information in a signal.]
-The following steps for the counting operation are all based on image processing \DS{as before, less schematic, more discursive}:
- 
- \begin{enumerate}
- 	\item ROI selection;
- 	\item Conversion to greyscale;
- 	\item Duplication of the image;
- 	\item Application of a gaussian filter (radius equal to 5);
- 	\item Difference between the original image and the duplicated one;
- 	\item Binarization of the image;
- \end{enumerate}
+\\An on-screen Region of Interest (ROI) selection procedure (\fig\ref{Algorithms} block (6)) allows setting the left-top corner of the image as the starting pixel and the right-down corner of the image as the end pixel. The resulting coordinates for the selection of the ROI are represented in ~\fig\ref{frame}: the abscissa ($\abscissa$) and ordinate ($\ordinate$) of the left-top point and the width ($\width$) and height ($\height$) of the region itself, obtained from the selection of the right-down point. 
+\\A DPIV analysis followed by a counting particles procedure are at this point carried out for the predefined interrogation ROIs. 
+The first analysis concerns a DPIV-based algorithm (\fig\ref{Algorithms} block (8)) that provides instantaneous velocity measurements and visualization. Briefly summarizing the DPIV approach presented in ... \MANU{Add reference},it consists of a first collection of the time-varying velocity vector maps through the evaluation of the cross-correlation between ROIs of consecutive pairs of images. 
+The velocity spatial distribution along the horizontal $\spatialmean{x}{i}{j}$ and vertical $\spatialmean{y}{i}{j}$ directions is obtained for each pairs of frames. A post processing procedure in terms of spatial average is done so that a single velocity value is obtained for each map. By repeating this for all the frames, two signals representing the trends of the average velocity over time are given, respectively $\mean{x}$ and $\mean{y}$.
+The preliminary step of DPIV setting (\fig\ref{Algorithms} block (7)) concerns the possibility of opting for a multi-pass discrete Fourier transform (DFT) for the DPIV analysis, by setting the number of passes from 1 to 4, the corresponding interrogation areas and the step size.
+A multi-pass DFT in frequency domain, as implemtend by the PIVlab tool, could be used in order to increase the accuracy. In the experimental campaign, detailed in \sect\ref{sec:setup}, the analysis was conducted by a three-passes DFT, reaching a good compromise between the resolution and the computational time. The three interrogation areas in pixels were chosen as follows: $Area1=64$, $Area2=32$ and $Area3=16$. The step size was set equal to the half of the last interrogation area ($Area3=16$), resulting in a value equal to 8 $\pixel$.
+\\The micro-particles hydrodynamic response in time domain was evaluated by computing the range of the velocity signal $\meann$ in the two components $\abscissa$ and $\ordinate$, according to \eqn (\ref{eqn:range}). 
+\begin{equation}
+	\label{eqn:range}
+	Range\meann=max(\meann)-min(\meann)
+\end{equation}
+The micro-particles hydrodynamic response in frequency domain was evaluated by computing the spectrum of $\meann$ in the two components $\abscissa$ and $\ordinate$. This provides informations on the frequency components involved in the dynamic process in terms of fundamental frequency, imposed by the hydrodynamic input and to investigate possible high-frequency components to be associated with intrinsic micro-particles behaviors.
+\\The second analysis that this platform provides is the counting particles one (\fig\ref{Algorithms} block (9)). This procedure is based on highlighting the particles in the image distinguishing them from the background. It provides a continuous counting in the time of the micro-particles number in the investigated area, avoiding any manual and individual selecting of the frames to be studied \DS{Although current approaches rely on manual counting or others, (add references if any) the provided implementation makes use of a counting algorithm ...}. It allows to analyze the video frame by frame, count the number of particles and collect this information in a signal. This last can also be averaged over time to obtain a single average particles number for a given experimental condition.
+\\The counting procedure is essential not only to have an idea of the number of micro-particles involved in the process, but, even more, when we want to compare the results obtained with different types of particles. The velocity obtained by the DPIV-based algorithm, in fact, can be strongly influenced by the number of particles present in the ROI since a spatial average is considered. It should also be considered that different micro-particles correspond to different densities which influence the number of them in the process. According to what has been said, it is necessary to normalize the velocity signals for the average particles number when we wants to compare processes characterized by micro-particles of different nature and physical properties.
+\\Having selected the ROI, the counting operation follows some steps all based on image processing as presented in \MANU{Add reference}. A first conversion of the selected image portion to greyscale is followed by a duplication of the image. A Gaussian filter is applied and the resulting filtered image is subtracted from the greyscale one. A binarization procedure of the resulting image is performed.
 At this point a function takes as input the binary image. It traces the exterior boundaries of particles and gives the number of them found.
-Important parameters to be set are the minimum and maximum dimensions of the searched object in pixels, in order to count among the found micro-particles only those that have an appropriate size. For the yeast cells and the silica beads the minimum area was set to 1 pixel and the maximum was set to 2 pixels \DS{measurement units and, so far, focus on the methodology rather than the experimental details. They will be given in the next section.}. There is another parameter to be set based on the shape of the object that is \DS{OK ---- Try to sump up this long preparatory sentence} a threshold value chosen to define the circularity. Due to the circular geometry of the micro-particles, the threshold was set equal to 1 that indicates a perfect circle \DS{Again, try to describe the approach in its general form. Futher details about the numbers, shapes and so on, will be provided after}.
+Important parameters to be set are the minimum and maximum dimensions of the searched object in $\pixel$, in order to count among the found micro-particles only those that have an appropriate size. A threshold value based on the shape of the object should also be set. It defines the circularity of the object with a reference value equal to 1 that indicates a perfect circle.
 Having defined all the parameters, the exterior boundaries of micro-particles are traced and the number of them is found for each frame.
 
-\subsection{Experimental Setup and Campaigns}
+\subsection{Experimental Setup and Campaigns}\label{sec:setup}
 
 The experimental set-up is composed of a syringe pump, a microfluidic chip, an opto-mechanical system and a personal computer. A representation of it is reported in ~\fig\ref{setup}. Syringe pumps (neMESYS low-pressure module, Cetoni GmbH,
-Korbussen, Germany) were used to inject the sample of particles or cells suspended in a fluid in the Y-junction squared rectilinear micro-channel (SMS0104, Thinxxs, Zweibrucken, Germany), 16~$[\rm mm]$ long and with a diameter of 320~$[\rm~\mu m]$ (see ~\fig\ref{Platform}).
+Korbussen, Germany) were used to inject the sample of particles or cells suspended in a fluid in the Y-junction squared rectilinear micro-channel (SMS0104, Thinxxs, Zweibrucken, Germany), 16~$[\rm mm]$ long and with a diameter of 320~$[\rm\mu m]$ (see ~\fig\ref{Platform}).
 
 
-A CCD camera (340M Fast Frame, Thorlabs, Newton, NJ, USA) with a resolution of $640 \times 480$ pixels (pixel size of 7.4~$[\rm~\mu m]$, square) was included in the optomechanical system ((OTKB/M) Modular Optical Tweezers, Thorlabs, Newton, NJ, USA). Visible light from the LED source illuminates the sample and is then imaged
-on the CCD camera.
+A CCD camera (340M Fast Frame, Thorlabs, Newton, NJ, USA) with a resolution of $640 \times 480$ \pixel (pixel size of 7.4~$[\rm\mu m]$, square) was included in the optomechanical system ((OTKB/M) Modular Optical Tweezers, Thorlabs, Newton, NJ, USA). Visible light from the LED source illuminates the sample and is then imaged on the CCD camera.
 The CCD camera was connected through a USB connection with a PC for the data acquisition and the subsequent analysis phase in the dedicated software platform.
 
 
@@ -279,12 +269,12 @@ The CCD camera was connected through a USB connection with a PC for the data acq
 
 A magnification of 10X (PLN, Olympus, Tokyo, Japan) has been used to scale up the channel images to be able to see more detail and increasing resolution.
 Acquisitions and analyzes were performed using a SAMSUNG Galaxy Book PC, with an Intel Core i7 processor, INTEL Iris Xe Graphics, 16 GB RAM and 512 GB SSD.
-\\The fluids employed for the experiments were obtained by diluting micro-particles in different solutions. The micro-particles were of two types: cells of eukaryotic origins with a diameter of 5 $[\rm\mu m]$ and artificial silica beads with a diameter of 6 $[\rm\mu m]$. Two types of particles have been used to investigate and compare the different behaviors of cells and synthetic particles. Their physical properties, such as mass, radius, volume and density, are summerized in ~\tab\ref{properties}. Four different types of yeast cell living conditions have been examined. In particular viable cells, 2 days overgrowth, 5 days overgrowth and exposed to cell death stimuli with hydrogen peroxide ($H_2O_2$) \DS{Viable and death cells. I wouldn't mention the others}. 
-Yeast cells were diluted in a saline solution, the phospate buffered saline (PBS, density of 1072 $Kg/m^3$). By contrast, Silica beads micro-particles were diluted in two different solutions. A first one (density of 1200 $Kg/m^3$) obtained by combining 20\% of water with 80\% of glycerol to avoid the deposition of the particles at the bottom of the channel thanks to the increment of the fluid density. The second solution is represented by PBS.
+\\The fluids employed for the experiments were obtained by diluting micro-particles in different solutions. The micro-particles were of two types: cells of eukaryotic origins with a diameter of 5 $[\rm\mu m]$ and artificial silica beads with a diameter of 6 $[\rm\mu m]$. Two types of particles have been used to investigate and compare the different behaviors of cells and synthetic particles. Their physical properties, such as mass, radius, volume and density, are summerized in ~\tab\ref{properties}. Two different types of yeast cell living conditions have been examined. In particular viable cells and exposed to cell death stimuli with hydrogen peroxide ($H_2O_2$).
+Yeast cells were diluted in a saline solution, the phospate buffered saline (PBS, density of 1072 $\density$). By contrast, Silica beads micro-particles were diluted in two different solutions. A first one (density of 1200 $\density$) obtained by combining 20\% of water with 80\% of glycerol to avoid the deposition of the particles at the bottom of the channel thanks to the increment of the fluid density. The second solution is represented by PBS.
 The microfluidic chip was fed with fluid on which an oscillating flow was imposed.
-At the beginning a PBS flow and then a glycerol-water flow, without micro-particles suspendend on it, was recorded to quantify the effect of the fluid backgroung in the images. It was injected through syringe pumps with an external oscillating pressure at a frequency of $f_i= 0.1 Hz$ and an amplitude of $A=0.1 ml/min$. \DS{OK ---- please, define the symbols} 
-\\The other 40 experiments that have been carried out are summarized in ~\tab\ref{offlineexp} and ~\tab\ref{onlineexp}, distinguished according to the software platform used to analyze them (offline or online). Experiments with viable yeast cells and beads in glycerol-water solution were performed twice, to compare the results obtained with the two different implementations and test their consistency.
-For all categories of cells and particles, the sample of fluid was fed into the micro-channel using an oscillating flow at a fixed frequency of $f_i= 0.1 Hz$ and five different amplitude values $A \in{0.05, 0.07, 0.1, 0.15, 0.2 ml/min}$. \DS{let's use the same style for the unit measurements}
+At the beginning a PBS flow and then a glycerol-water flow, without micro-particles suspendend on it, was recorded to quantify the effect of the fluid backgroung in the images. It was injected through syringe pumps with an external oscillating pressure at a frequency of $\frequency=0.1~\hertz$ and an amplitude of $\amplitude=0.1~\flow$.
+\\The other 30 experiments that have been carried out are summarized in ~\tab\ref{offlineexp} and ~\tab\ref{onlineexp}, distinguished according to the software implementation used to analyze them (offline or online). Experiments with viable yeast cells and beads in glycerol-water solution were performed twice, to compare the results obtained with the two different implementations and test their consistency.
+For all categories of cells and particles, the sample of fluid was fed into the micro-channel using an oscillating flow at a fixed frequency of $\frequency=0.1~\hertz$ and five different amplitude values $\amplitude\in~{0.05, 0.07, 0.1, 0.15, 0.2~\flow}$.
 
 
 % Please add the following required packages to your document preamble:
@@ -306,8 +296,6 @@ For all categories of cells and particles, the sample of fluid was fed into the 
 		\rowcolor[HTML]{FFFFFF} 
 		\textbf{Micro-particles}                            & \textbf{\begin{tabular}[c]{@{}c@{}}Frequency \\ $f_i$ {[}$Hz${]}\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Amplitude \\ $A$\,{[}\,$ml/min${]}\end{tabular}} \\ \midrule
 		\textit{Viable Yeast cells}                        & 0.1                                                                       & 0.05, 0.07, 0.1, 015, 0.2                                                                                               \\
-		\textit{Yeast cells 2 days overgrowth}             & 0.1                                                                       & 0.05, 0.07, 0.1, 015, 0.2                                                                                               \\
-		\textit{Yeast cells 5 days overgrowth}             & 0.1                                                                       & 0.05, 0.07, 0.1, 015, 0.2                                                                                               \\
 		\textit{Yeast cells exposed to cell death stimuli} & 0.1                                                                       & 0.05, 0.07, 0.1, 015, 0.2                                                                                               \\
 		\textit{Beads in PBS}                              & 0.1                                                                       & 0.05, 0.07, 0.1, 015, 0.2                                                                                               \\
 		\textit{Beads in glycerol-water}                   & 0.1                                                                       & 0.05, 0.07, 0.1, 015, 0.2                                                                                               \\ \bottomrule
@@ -327,29 +315,7 @@ For all categories of cells and particles, the sample of fluid was fed into the 
 \centering{\caption{\label{onlineexp}Online experimetal campaign.}}
 \end{table}
 
-\begin{table}[h!]
-	\begin{tabular}{@{}llc@{}}
-		\toprule
-		\textbf{}                       & \multicolumn{1}{c}{\textbf{Offline}} & \textbf{Online}                            \\ \midrule
-		\textbf{Camera sampling frequency}          & \multicolumn{2}{c}{57 FPS}                                                 \\
-		\textbf{Process transient time}             & \multicolumn{2}{c}{2 minutes}                                              \\
-		\textbf{Acquisition time window}            & 60 seconds                           & 15 seconds                          \\
-		\textbf{DPIV processing time}               & 67 minutes                           & 19 minutes                          \\
-		\textbf{Counting particles processing time} & 5 minutes                            & \textit{work in progress}           \\ \bottomrule
-	\end{tabular}
-	\centering{\caption{\label{timing}Experimetal campaign timing.}}
-\end{table}
-
-\begin{table}[h!]
-	\begin{tabular}{@{}llll@{}}
-		\toprule
-		\textbf{Pixelsize}         & \textbf{Magnification}  & \textbf{Exposure Time}       & \textbf{Image Gain}     \\ \midrule
-		\multicolumn{1}{c}{7.4~$[\rm~\mu m]$} & \multicolumn{1}{c}{10X} & \multicolumn{1}{c}{17000~$[\rm~\mu s]$} & \multicolumn{1}{c}{200} \\ \bottomrule
-	\end{tabular}
-	\centering{\caption{\label{campar}Camera setting parameters. }}
-\end{table}
-
-\begin{table}[h!]
+\begin{table}[t!]
 	\begin{tabular}{@{}lcccc@{}}
 		\toprule
 		\multicolumn{5}{c}{\textbf{Region of Interest (ROI)}}                                                                                         \\ \midrule
@@ -362,100 +328,119 @@ For all categories of cells and particles, the sample of fluid was fed into the 
 
 The data were recorded considering different time intervals in the two types of algorithms:
 \begin{itemize}
-	\item \textbf{Offline algorithm}: data recorded for 60 seconds, with a video frame rate of 57 frames per second, around 3420 frames per experiment.
-	\item \textbf{Online algorithm}: data recorded for 15 seconds, with a video frame rate of 57 frames per second, around 855 frames per experiment. 
+	\item \textit{Offline algorithm}: data recorded for 60 $\seconds$, with a video frame rate of 57 $\framerate$, around 3420 frames per experiment.
+	\item \textit{Online algorithm}: data recorded for 15 $\seconds$, with a video frame rate of 57 $\framerate$, around 855 frames per experiment. 
 \end{itemize}
 
-
-The image gain was set equal to 200 and the exposure time equal to 17000 $[\rm\mu s]$, resulting in a framerate of 57 FPS \DS{let's define a measurement unit for this and let's try to be consistent with it}. The pixelsize value set at 7.4~$[\rm\mu m]$ was obtained from the camera datasheet. All camera setting parameters are summerized in ~\tab\ref{campar}.
+In the online implementation, in particular, the acquisition took place through the communication between the CCD camera and MATLAB, downloading the \textit{Windows SDK and Doc. for Scientific Cameras}.
+The image gain was set equal to 200 and the exposure time equal to 17000 $[\rm\mu s]$, resulting in a framerate of 57 $\framerate$. The pixelsize value set at 7.4~$[\rm\mu m]$ was obtained from the camera datasheet.
 Another important step to perform before the start of the DPIV and
 counting particles analysis is the selection of the ROI.
-It was determined as described in \sect\ref{sec:method} and the coordinates are reported in ~\tab\ref{roi} . 
-
-
-~\tab\ref{timing} summarized the temporal references that characterized the experimental campaign. They are listed in terms of camera sampling frequency, process transient time, acquisition time window, DPIV and counting particles processing time. 
-The values of the processing times depend on the performance of the PC and also on the size of the selected ROI: greater regions of analysis correspond to greater processing times.
-
+It was determined as described in \sect\ref{sec:method} and the coordinates are reported in ~\tab\ref{roi}. 
+\\Having selected the investigated area, the setting of the parameters for the multi-pass DFT for the DPIV analysis was done as described in \sect\ref{sec:method}. Following, some details on the choice of the parameters for the counting particles analysis are reported. For the yeast cells and the silica beads the minimum area was set to 1 $\apixel$ and the maximum was set to 2 $\pixel$. Due to the circular geometry of micro-particles, the threshold was set equal to 1 that indicates a perfect circle.
 
 \section{Results and discussion}
-\DS{OK ---- Before the entire discussion, I often use to summarize what the reader is going to read in the next few lines. For example, in \sect\ref{sec:suspended-particles} we will discuss this ..., in \sect\ref{sec:comparison} we will compare that... Referring to the methodology as you did if you like.}
-Since the micro-particles are induced to move in the horizontal direction, this will be the component considered in the subsequent analysis. 
+In this chapter the experimental results are presented. In particular in \sect\ref{sec:suspended-particles} we will discuss the behavior of synthetic particles related to the fluid in which they are suspended and in \sect\ref{sec:comparison} we will compare the hydrodynamic response of the different types of cells, viable and dead, and synthetic particles. Referring to the methodology as you did if you like. \sect\ref{sec:OnlineOffline} shows a comparison of the results obtained with the two implementations.
+Since the micro-particles are induced to move in the horizontal direction, this will be the velocity component considered in the subsequent analysis. 
 %Looking at the movement of the micro-particles along the micro-channel and considering also the image orientation, the dominant velocity component is the horizonatal one. In fact, the trend of the horizontal velocity component $<V_x(t)>$ shows the periodicity of the oscillating input flow imposed. This component is the one taken in consideration for the following analysis. 
-\\The micro-particles hydrodynamic response in time domain was evaluated by computing the range of the velocity signal $<V_x(t)>$, according to \eqn \ref{eqn:range}. 
-\begin{equation}
-	\label{eqn:range}
-	Range<V_x(t)>=max(<V_x(t)>)-min(<V_x(t)>)
-\end{equation}
-The micro-particles hydrodynamic response in frequency domain was evaluated by computing the spectrum of the velocity signal $<V_x(t)>$, in order to obtain information on the frequency components involved in the dynamic process.
-\DS{Maybe this part can go in the methodology section, so that you will need to refer to it rather than write it. Besides, you could also add more details about its meaning. In fact, it is more about the methodology rather than related to the results.}
+
 
 \subsection{Particles suspended in fluids with different densities}\label{sec:suspended-particles}
 
-The described algorithm was used to study how the hydrodynamic response of synthetic micro particles, silica beads, can be related to their physical properties and differ according to the fluid in which they are suspended. To compare the results obtained for the same kind of particles suspended in different fluids, the velocity signal $<V_x(t)>$ was computed per each experiment, by the DPIV-based algorithm described in \sect\ref{sec:method}, and then the spectrum of each signal was evaluated. 
-
+The described algorithm was used to study how the hydrodynamic response of synthetic micro particles, silica beads, can be related to their physical properties and differ according to the fluid in which they are suspended. To compare the results obtained for the same kind of particles suspended in different fluids, the velocity signal $\mean{x}$ was computed per each experiment, by the DPIV-based algorithm described in \sect\ref{sec:method}.
 
 \begin{figure}[t]
+\centering
+    \begin{subfigure}[b]{\columnwidth}
+    \centering
+	\includegraphics[width=1\columnwidth]{images/BeadsA}
+	\caption{}
+	\label{A}
+    \end{subfigure}
+    \begin{subfigure}[b]{\columnwidth}
 	\centering
-	\includegraphics[width=1\columnwidth]{images/Beads}
-	\centering{\caption{\label{Beads}The velocity trends $<V_x(t)>$ and its spectrum obtained in the experimental condition with {$A=0.1 ml/min, f_i= 0.1 Hz$}: (a) silica beads in PBS and (b) silica beads in glycerol-water solution.\DS{The images resolution is quite poor. Can you ask Samuele to provide his graphs in time and frequency domain? Especially the ones that show the peaks in frequency in red? Titles should be removed and 4 pictures have to be created here, namely (a), (b), (c), (d). I would suggest to use matlab scripts rather than getting screenshots from power point.}}}
-\end{figure}
+	\includegraphics[width=1\columnwidth]{images/BeadsB}
+	\caption{}
+	\label{B}
+    \end{subfigure}
+    \begin{subfigure}[b]{\columnwidth}
+	\centering
+	\includegraphics[width=1\columnwidth]{images/BeadsC}
+	\caption{}
+	\label{C}
+    \end{subfigure}
+    \begin{subfigure}[b]{\columnwidth}
+	\centering
+	\includegraphics[width=1\columnwidth]{images/BeadsD}
+	\caption{}
+	\label{D}
+    \end{subfigure}
+\centering{\caption{\label{Beads}The velocity trends $\mean{x}$ and its spectrum obtained in the experimental condition with $\amplitude=0.1~\flow$ and  $\frequency=0.1~\hertz$: velocity signal (a) and its spectrum (b) of silica beads in PBS solution and velocity signal (c) and its spectrum (d) of silica beads in glycerol-water solution.}}
+\end{figure} 
 
 \begin{figure*}[t]
 	\centering
 	\includegraphics[width=2\columnwidth]{images/BeadsFinal}
-	\centering{\caption{\label{BeadsFinal}The parameter ($Range<V_x(t)>$) and the parameter ($Amplitude peak$) at the fundamental frequency varying the oscillating input flow strength at the inlet $A$ at a frequency $f_i= 0.1 Hz$ for the silica beads in PBS and glycerol-water (GW) solution.}}
+	\centering{\caption{\label{BeadsFinal}Parameters $\range$ and $\peak$ at the fundamental frequency varying the oscillating input flow strength at the inlet $\amplitude$ at $\frequency=0.1~\hertz$ for silica beads in PBS and glycerol-water (GW) solution.}}
 \end{figure*}
 
-In ~\fig\ref{Beads}, for silica beads in PBS and in glycerol-water solution, in the experimental condition with {$A=0.1 ml/min, f_i= 0.1 Hz$}\DS{try to set the formatting here and in general in the text. In the pdf, there's no space. Try to uniform measurement units} and in a time interval of about 60 $s$, the velocity signals in the dominant component  $<V_x(t)>$ and their spectrum are plotted.
-It can be noted that the speed signal relating to the silica beads sample in the PBS solution (see ~\fig\ref{Beads}(a)) is noisier than the speed signal relating to the silica beads sample in the glycerol-water solution (see ~\fig\ref{Beads}(b)). This is given by the fact that since the silica beads have a higher density than PBS, they tend to settle in the bottom of the micro channel, putting up resistance to the imposed hydrodynamic actuation at the input. Suspended beads in a solution of the same density have shown to be an effective solution to this problem. This allows beads to float in the fluid and not to pose resistance to the hydrodynamic input that is imposed. The speed signal relating to the silica beads sample in the glycerol-water solution (see ~\fig\ref{Beads}(b)) shows a shape similar to that expected from the input flux supplied, a sine wave with frequency $f_i= 0.1 Hz$, detected from the fundamental frequency in the spectrum, and amplitude $A={0.1 ml/min}$.
-
-
-The micro-particles hydrodynamic response in time domain was evaluated by computing the range of the velocity signal $<V_x(t)>$, as shown in \eqn \ref{eqn:range}. ~\fig\ref{BeadsFinal} shows the value of the velocity range ($Range<V_x(t)>$) and the peak at the fundamental frequency ($Amplitude peak$ \DS{we should define a symbol for this quantity. A letter would be enough.}) for each experimental condition. The two curves are related to silica beads in the two different solutions considered and each point of the curves is correlated to the amplitude of the external oscillating input flow strength $A$ with a constant frequency $f_i= 0.1 Hz$. 
+In ~\fig\ref{Beads}, for silica beads in PBS and in glycerol-water solution, in the experimental condition with $\amplitude=0.1~\flow$ and  $\frequency=0.1~\hertz$, the velocity signals in the dominant component  $<V_x(t)>$ and their spectrum are plotted.
+It can be noted that the speed signal relating to the silica beads sample in the PBS solution (see ~\fig\ref{Beads}(a)) is noisier than the speed signal relating to the silica beads sample in the glycerol-water solution (see ~\fig\ref{Beads}(c)). This is given by the fact that since the silica beads have a higher density than PBS, they tend to settle in the bottom of the micro channel, putting up resistance to the imposed hydrodynamic actuation at the input. Suspended beads in a solution of the same density have shown to be an effective solution to this problem. This allows beads to float in the fluid and not to pose resistance to the hydrodynamic input that is imposed. The speed signal relating to the silica beads sample in the glycerol-water solution (see ~\fig\ref{Beads}(c)) shows a shape similar to that expected from the input flux supplied, a sine wave with frequency $\frequency=0.1~\hertz$, detected from the fundamental frequency in the spectrum, and amplitude $\amplitude=0.1~\flow$.
+\\The micro-particles hydrodynamic response in time domain was evaluated by computing the range of the velocity signal $\mean{x}$, as shown in \eqn (\ref{eqn:range}). ~\fig\ref{BeadsFinal} shows the value of $\range$ and the amplitude peak at the fundamental frequency, $\peak$, for each experimental condition. The two curves are related to silica beads in the two different solutions considered and each point of the curves is correlated to the amplitude of the external oscillating input flow strength $\amplitude$ with a constant $\frequency=0.1~\hertz$. 
 \\The curve related to the beads in PBS does not show any correlation between the imposed input and the hydrodynamic response of the micro-particles. The curve relating to the beads in the glycerol-water solution shows how the parameters examined in the time domain and in the frequency domain increase as the input amplitude increases, showing a correlation between the input and the hydrodynamic response of the micro-particles.
-
-For what has been said up to now, in \sect\ref{sec:comparison} in which the comparison between synthetic particles, live cells and cells exposed to death stimuli is made, and in \sect\ref{sec:OnlineOffline} in which the results obtained from the online and offline platform are compared, only the results relating to silica beads in the glycerol-water solution were considered because they allowed a better characterization of the process.
-\DS{Yes, this is exactly what we observe. However, I would extend such a concept adding that since silica beads are synthetic and since what we expect is that they do not provide any resistance to the input sources, then the glycerol solution is the most suitable among the analyzed ones because it allows to show up this behavior.}
+Since silica beads are synthetic particles, what we expect is that they do not provide any resistance to the input sources and so the glycerol solution is the most suitable among the analyzed ones because it allows to show up this behavior.
+For this reason, in \sect\ref{sec:comparison} in which the comparison between synthetic particles, live cells and cells exposed to death stimuli is made, and in \sect\ref{sec:OnlineOffline} in which the results obtained from the online and offline platform are compared, only the results relating to silica beads in the glycerol-water solution will be considered beacause they allowed a better process characterization.
 
 \subsection{Viable cells, Dead cells and Synthetic Particles in comparison}\label{sec:comparison}
 
-The DPIV-based and micro-particles counting algorithms were used to analyze the data collected in the experimental campaigns related to yeast cells in different living conditions. This allowed to investigate how the hydrodynamic response of cells could be correlated to their living condition.  To compare the results obtained for different kind of cells' living condition, the velocity signal $<V_x(t)>$ was computed by the DPIV-based algorithm described in \sect\ref{sec:method}, the spectrum of each signal was evaluated and the average number of micro-particles $<N_p(t)>$ was computed for each experiment. 
+The DPIV-based and micro-particles counting algorithms were used to analyze the data collected in the experimental campaigns related to yeast cells in different living conditions. This allowed to investigate how the hydrodynamic response of cells could be correlated to their living condition.  To compare the results obtained for different kind of cells' living condition, the velocity signal $\mean{x}$ was computed by the DPIV-based algorithm described in \sect\ref{sec:method}, the spectrum of each signal was evaluated and the average number of micro-particles $\particles$ was computed for each experiment. 
 In particular, the results relating to viable yeast cells and viable yeast cells exposed to cell death stimuli, induced by an apoptotic process of death, i.e. a mechanism of genetically programmed death, are reported \DS{TODO: provide additional details in the introduction about apoptosis and add references}. These two conditions allowed to correlate the hydrodynamic response of the micro-particles to their physical properties according to the different living conditions. This allowed a characterization of the same type of cells, the yeast cells, in the different phases of the cell cycle.
-The same analysis did not provide significant results in the case of 2 and 5 days overgrowth cells, therefore the results obtained in these two cases will be bypassed in subsequent comparisons. \DS{If we do not have significant results, we do not mention them. Otherwise reviewers will have space to find weaknesses in our work. In general, we show our results. We leave the open points for the conclusions.}
 
 \begin{figure}[t]
 	\centering
-	\includegraphics[width=1\columnwidth]{images/Yeast}
-	\centering{\caption{\label{Yeast}The velocity trends $<V_x(t)>$ in the experimental condition with {$A=0.1 ml/min, f_i= 0.1 Hz$}: (a) viable yeast cell and (b) yeast cell exposed to cell death stimuli.}\DS{This blue is not the best in aesthetic terms. Could you use the blue line you've in fig. 8?}}
-\end{figure}
+	\begin{subfigure}[b]{\columnwidth}
+		\centering
+		\includegraphics[width=1\columnwidth]{images/YeastA}
+		\caption{}
+		\label{A}
+	\end{subfigure}
+	\begin{subfigure}[b]{\columnwidth}
+		\centering
+		\includegraphics[width=1\columnwidth]{images/YeastB}
+		\caption{}
+		\label{B}
+	\end{subfigure}
+	\centering{\caption{\label{Yeast}The velocity trends $\mean{x}$ in the experimental condition with $\amplitude=0.1~\flow$ and  $\frequency=0.1~\hertz$: viable yeast cell (a) and yeast cell exposed to cell death stimuli (b).}}
+\end{figure}  
 
-In ~\fig\ref{Yeast}, for viable and exposed to cell death stimuli yeast cells, in the experimental condition with {$A=0.1 ml/min, f_i= 0.1 Hz$} and in a time interval of about 60 $s$ \DS{OK ---- no need to re-write the same information about the experimental analysis. We've already said how much time we record the data. We should find labels to identify each experiment so that the reading would be smoother.}, the velocity signals in the dominant component  $<V_x(t)>$ \DS{not a fun of this $< V >$ way of describing the mean. We could use $\bar{V}$} are plotted. The different oscillating trends of the velocity signals highlights the effects induced by the oscillating input flow in different cell living condition. In particular, considering the same experimental condition, the amplitude of the velocity trend for viable yeast cells (see ~\fig\ref{Yeast}(a)) is lower than the one found for yeast cells exposed to cell death stimuli. 
+In ~\fig\ref{Yeast}, for viable and exposed to cell death stimuli yeast cells, in the experimental condition with $\amplitude=0.1~\flow$ and  $\frequency=0.1~\hertz$, the velocity signals in the dominant component  $\mean{x}$ are plotted. The different oscillating trends of the velocity signals highlights the effects induced by the oscillating input flow in different cell living condition. In particular, considering the same experimental condition, the amplitude of the velocity trend for viable yeast cells (see ~\fig\ref{Yeast}(a)) is lower than the one found for yeast cells exposed to cell death stimuli. 
 In the condition of viable yeast cells there is a greater resistance from the cells to the force imposed on the input, resulting in a lower maximum speed value reached compared to that of yeast cells exposed to cell death stimuli.
 
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=1\columnwidth]{images/VelPar}
-	\centering{\caption{\label{VelPar}The velocity trend $<V_x(t)>$ compared with the trend of $<N_p(t)>$ in the experimental condition with viable yeast cells and {$A=0.1 ml/min, f_i= 0.1 Hz$.}\DS{The legend is not in latex. The legend shouldn't go over the signals. Either you use the legend, either you use the axis label. The two information are redundant. Choose one of them. Remove the title from every picture. The caption is made for that and if you have necessarily a title, it has to be written in latex.}}}
+	\centering{\caption{\label{VelPar}The velocity trend $\mean{x}$ compared with the trend of $\particles$ in the experimental condition with viable yeast cells and $\amplitude=0.1~\flow$ and  $\frequency=0.1~\hertz$.}\MANU{Discuss with professor the possibility to choose another experimental condition in which the concept is more evident. After that modify the figure as done with the other.}}
 \end{figure}
 
-In ~\fig\ref{VelPar} the superposition of the trend of  $<V_x(t)>$ and the trend of $<N_p(t)>$ is plotted, in the experimental condition with viable yeast cells and {$A=0.1 ml/min, f_i= 0.1 Hz$}. In the instants in which the speed signal is 0 \DS{OK ---- measurement unit?}, the signal of the trend of the particles assumes the maximum value; this is due to the fact that when the speed is zero, particles stop and accumulate.
-\\In the instants in which the velocity signal is at the maximum or minimum value, the particle trend signal assumes the minimum value, because particles are in motion, in one direction or in the other, and the fewest number of them are counted by the algorithm. This is a consequence of the hydrodynamic stimulus imposed by the mechanical actuation through the syringe pumps flow rate, i.e. particles tend to be highly concentrated when the stimulus reaches the zero value, otherwise they are more dispersed during the rising phase of the stimulus, indipendently of its direction. \DS{OK ---- After the discussion, it should be clear why we're using the counting algorithm. We need it for the normalization. Therefore, I would consider to add a small sentence about that. This will make the reader conscious of the reason why we need a counting algorithm for the approach. Let's try to find the best spot for this small explanation so that we do not have repetition in the text.}
+In ~\fig\ref{VelPar} the superposition of the trend of  $\mean{x}$ and the trend of $\particles$ is plotted, with viable yeast cells in the same experimental condition as before. In the instants in which the speed signal is 0 $\flow$, the signal of the trend of the particles assumes the maximum value; this is due to the fact that when the speed is zero, particles stop and accumulate.
+\\In the instants in which the velocity signal is at the maximum or minimum value, the particle trend signal assumes the minimum value, because particles are in motion, in one direction or in the other, and the fewest number of them are counted by the algorithm. This is a consequence of the hydrodynamic stimulus imposed by the mechanical actuation through the syringe pumps flow rate, i.e. particles tend to be highly concentrated when the stimulus reaches the zero value, otherwise they are more dispersed during the rising phase of the stimulus, indipendently of its direction.
 
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=1\columnwidth]{images/Comparison}
-	\centering{\caption{\label{Comparison}The parameter ($Range<V_x(t)>$) varying the oscillating input flow strength at the inlet $A$ at a frequency $f_i= 0.1 Hz$: comparison between viable yeast cells, yeast cells exposed to cell death stimuli and silica beads in the glycerol-water (GW) solution.\DS{How do you do these curves? Why do they show this curvilinear behavior and not a rectilinear one? LINEA DI TENDENZA POLINOMIALE GRADO 4}}}
+	\centering{\caption{\label{Comparison}The parameter ($Range<V_x(t)>$) varying the oscillating input flow strength at the inlet $A$ at a frequency $f_i= 0.1 Hz$: comparison between viable yeast cells, yeast cells exposed to cell death stimuli and silica beads in the glycerol-water (GW) solution. \MANU{Should we fit the points with a broken line instead of using a degree 4 polynomial?}}}
 \end{figure}
 
-~\fig\ref{Comparison} shows the value of the velocity range ($Range<V_x(t)>$ \DS{OK ---- no need to repeat this symbol. Once defined, you can just refer to the symbol}) for each experimental condition. The three curves are related to viable yeast cells, yeast cells exposed to cell death stimuli and silica beads in the glycerol-water solution. Each point of the curves is correlated to the amplitude of the external oscillating input flow strength $A$ with a constant frequency $f_i= 0.1 Hz$. 
-Because of the fact that micro-particles of different natures are being compared, a normalization of the $Range<V_x(t)>$ to the average number of particles was carried out. This procedure was applied due to the fact that the micro-particles density is different in each experimental condition and thanks to this normalization it is possible to compare the results obtained. 
-\\The micro-particles hydrodynamic response comparison in time domain was evaluated by computing the range of the velocity signal $<V_x(t)>$, as shown in \DS{\eqn(}\ref{eqn:range}) and normalizing it with respect to the average number of micro-particles $<N_p(t)>$, computed in the investigated area following the procedure described in \sect\ref{sec:method}.
+~\fig\ref{Comparison} shows the value of $\range$ for each experimental condition. The three curves are related to viable yeast cells, yeast cells exposed to cell death stimuli and silica beads in the glycerol-water solution. Each point of the curves is correlated to the amplitude of the external oscillating input flow strength $\amplitude$ with a constant  $f_i= 0.1 Hz$. 
+Because of the fact that micro-particles of different natures are being compared, a normalization of the $\range$ to the average number of particles was carried out. This procedure was applied due to the fact that the micro-particles density is different in each experimental condition and thanks to this normalization it is possible to compare the results obtained. 
+\\The micro-particles hydrodynamic response comparison in time domain was evaluated by computing the range of the velocity signal $\mean{x}$, as shown in \eqn(\ref{eqn:range}) and normalizing it with respect to the average number of micro-particles $\particles$, computed in the investigated area following the procedure described in \sect\ref{sec:method}.
 From ~\fig\ref{Comparison} it is possible to notice that, for all the experimental conditions, the curve relating to yeast cells exposed to cell death stimuli is always in the middle, between the one relating to viable yeast cells and the one relating to silica beads in the glycerol-water solution.
-Yeast cells vary their behavior according to their different living conditions taking on characteristics more typical of synthetic particles, i.e. silica beads, when they are exposed to death stimuli. In fact, the results show that their behavior is comparable with particles of lower density and with the fluid on which they are suspended as they exhibit no resistance to the input flows while attaining higher velocities than the yeast live cells.
+Yeast cells vary their behavior according to their different living conditions taking on characteristics more typical of synthetic particles, i.e. silica beads, when they are exposed to death stimuli. In fact, the results show that their behavior is comparable with particles of lower density and with the fluid on which they are suspended as they exhibit no resistance to the input flows while attaining higher velocities than the viable yeast cells.
 
-\subsection{Online vs Offline}\label{sec:OnlineOffline}
+\subsection{Online vs offline}\label{sec:OnlineOffline}
 \DS{Before going into the details with this part and its revision, please, consider to make all the necessary steps to identify that the camera settings are not modified by Matlab. }
-To test the consistency of the two DPIV-based implementations, a subset of the experiments was tested and analyzed also through the DPIV-based online implementation, detailed in ~\tab\ref{onlineexp}. Two categories of micro-particles were considered, more precisely viable yeast cells and silica beads in the glycerol-water solution. The sample of fluid was fed into the micro-channel using an oscillating flow at a fixed frequency of $f_i= 0.1 Hz$ and five different amplitude values $A \in \{ 0.05, 0.07, 0.1, 0.15, 0.2 ml/min \}$. Process frames were acquired for a time interval of 15 $s$ for each experimental condition. 
-The results obtained through the online implementation were compared with those obtained through the offline platform for the same micro-particle category and experimental conditions. \DS{measurement units}
+To test the consistency of the two DPIV-based implementations, a subset of the experiments was tested and analyzed also through the DPIV-based online implementation, detailed in ~\tab\ref{onlineexp}. Two categories of micro-particles were considered, more precisely viable yeast cells and silica beads in the glycerol-water solution. The sample of fluid was fed into the micro-channel using an oscillating flow at a fixed frequency of $\frequency=0.1~\hertz$ and five different amplitude values $\amplitude\in~{0.05, 0.07, 0.1, 0.15, 0.2~\flow}$.. Process frames were acquired for a time interval of 15 $\seconds$ for each experimental condition. 
+The results obtained through the online implementation were compared with those obtained through the offline platform for the same micro-particle category and experimental conditions.
 
 \begin{figure}[t]
 	\centering
@@ -469,11 +454,11 @@ The results obtained through the online implementation were compared with those 
 	\centering{\caption{\label{ComparisonOnOff}Comparison of the parameter ($Range<V_x(t)>$) and the parameter ($Amplitude peak$) at the fundamental frequency varying the oscillating input flow strength at the inlet $A$ at a frequency $f_i= 0.1 Hz$ through online and offline platforms: (a) viable yeast cells and (b) silica beads in glycerol-water (GW) solution.}}
 \end{figure*}
 
-In ~\fig\ref{OnOff}, for viable yeast cells and silica beads in the glycerol-water solution, in the experimental condition with {$A=0.1 ml/min, f_i= 0.1 Hz$} and in a time interval of 15 $s$, the superimposition of the velocity signals in the dominant component  $<V_x(t)>$ and of their spectrum are plotted.
+In ~\fig\ref{OnOff}, for viable yeast cells and silica beads in the glycerol-water solution, in the experimental condition with $\amplitude=0.1~\flow$ and  $\frequency=0.1~\hertz$, the superimposition of the velocity signals in the dominant component  $\mean{x}$ and of their spectrum are plotted.
 From a first comparison it can be seen that the two curves are perfectly superimposable: the velocity values and the amplitude of the frequency peak are comparable in the two cases.
-~\fig\ref{ComparisonOnOff} shows the value of the velocity range ($Range<V_x(t)>$) and the peak at the fundamental frequency ($Amplitude peak$) for the two experimental condition. The two plots are related to viable yeast cells and to silica beads in the glycerol-water solution in the online e offline case. Each point of the curves is correlated to the amplitude of the external oscillating input flow strength $A$ with a constant frequency $f_i= 0.1 Hz$. 
-The comparison was made in the time and frequency domain and also in terms of statistical parameters, calculating the variations, indicated as $\Delta$, between two point of the curves correlated to the same amplitude of the external oscillating input flow strength $A$, the average among the various $\Delta$ values, the standard deviation and the coefficient of variation. This last is a dispersion index that allows to compare measurements of phenomena referred to different units of measurement, as it is a dimensionless quantity. 
-\\It was calculated to establish which approach is more robust between the comparison in the time domain through the velocity range ($Range<V_x(t)>$) or in the frequency domain through the peak at the fundamental frequency ($Amplitude peak$).
+~\fig\ref{ComparisonOnOff} shows the value of the ($\range$) and the $\peak$) for the two experimental condition. The two plots are related to viable yeast cells and to silica beads in the glycerol-water solution in the online e offline case. Each point of the curves is correlated to the amplitude of the external oscillating input flow strength $\amplitude$ with a constant $\frequency=0.1~\hertz$. 
+The comparison was made in the time and frequency domain and also in terms of statistical parameters, calculating the variations, indicated as $\Delta$, between two point of the curves correlated to the same amplitude of the external oscillating input flow strength $\amplitude$, the average among the various $\Delta$ values, the standard deviation and the coefficient of variation. This last is a dispersion index that allows to compare measurements of phenomena referred to different units of measurement, as it is a dimensionless quantity. 
+\\It was calculated to establish which approach is more robust between the comparison in the time domain through the $\range$) or in the frequency domain through the $\peak$.
 \\Being $\mu\neq0$ the arithmetic mean of a quantity and $\sigma$ its standard deviation, then the coefficient of variation is:
 
 \begin{equation}
@@ -488,8 +473,8 @@ The comparison was made in the time and frequency domain and also in terms of st
 \end{figure}
 
 The coefficient of variation is often compared between two or more groups to understand which group has a lower standard deviation relative to its mean. 
-\\~\fig\ref{Coeff} shows a bar graph representing the value of the coefficients of variation calculated from the $Range<V_x(t)>$ parameter and the $Amplitude peak$ for both categories of micro-particles: viable yeast cells and silica beads in the glycerol-water solution. 
-In both cases there is a smaller coefficient of variation calculated from the $Amplitude peak$ values. The frequency approach could be considered more robust because it is associated to a lower coefficient of variation.
+~\fig\ref{Coeff} shows a bar graph representing the value of the coefficients of variation calculated from the $\range$ parameter and the $\peak$ for both categories of micro-particles: viable yeast cells and silica beads in the glycerol-water solution. 
+In both cases there is a smaller coefficient of variation calculated from the $\peak$ values. The frequency approach could be considered more robust because it is associated to a lower coefficient of variation.
 
 \section{Conclusions}
 
